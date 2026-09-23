@@ -43,6 +43,20 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/*
+ * Chromium leaves a smeared "ghost" of scrolled-past content behind a
+ * `position: sticky` element that also uses `backdrop-filter: blur()`,
+ * because it doesn't always repaint the blurred region on every scroll
+ * frame. Promoting the header to its own GPU compositing layer forces a
+ * clean repaint each frame and stops the artifact.
+ */
+.site-header {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  will-change: transform;
+  isolation: isolate;
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
   font-weight: 600;
@@ -109,6 +123,10 @@ h1, h2, h3, h4, h5, h6 {
   .rail-btn {
     @apply grid h-10 w-10 shrink-0 place-items-center rounded-full border border-black/10 bg-white/70 text-ink transition hover:bg-white;
   }
+}
+
+[data-nav-bar] {
+  transform: translateZ(0);
 }
 
 /* Home header: transparent over the hero video until the page is scrolled */

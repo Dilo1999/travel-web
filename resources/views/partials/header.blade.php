@@ -10,7 +10,7 @@
     ];
 @endphp
 
-<header class="sticky top-0 z-50 px-3 pt-3 sm:px-5">
+<header class="site-header sticky top-0 z-50 px-3 pt-3 sm:px-5">
     <div class="relative mx-auto max-w-[1400px]">
         <div
             data-nav-bar
@@ -18,7 +18,7 @@
             class="flex flex-wrap items-center gap-1 rounded-full border py-2 pr-2 pl-4 transition-colors duration-300 {{ $isHome ? '' : 'glass text-ink' }}"
         >
             <a href="{{ route('home') }}" class="mr-auto flex items-center py-1">
-                <img data-nav-logo src="{{ asset('images/logo/nio-logo.png') }}" alt="{{ config('travel.brand.name') }}" class="h-9 w-auto transition-[filter] duration-300">
+                <img data-nav-logo src="{{ asset('images/logo/nio-logo.png') }}" alt="{{ config('travel.brand.name') }}" class="h-16 w-auto transition-[filter] duration-300">
             </a>
 
             <nav class="hidden items-center gap-0.5 lg:flex">
