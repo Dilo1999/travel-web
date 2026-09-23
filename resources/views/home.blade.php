@@ -6,7 +6,7 @@
 
 {{-- Hero --}}
 <section class="relative -mt-20 flex h-screen min-h-[560px] items-end overflow-hidden">
-    <div class="animate-hero-video absolute inset-0 bg-[#0c1a10] bg-cover bg-center" style="background-image:url('{{ travel_img('niohero3', 1920, 1080) }}')"></div>
+    <div class="animate-hero-video absolute inset-0 bg-[#0c1a10] bg-cover bg-center" style="background-image:url('{{ travel_img('niohero3', 1920, 1080, 'Sri Lanka,coast') }}')"></div>
     <div class="absolute inset-0" style="background:linear-gradient(180deg,rgba(8,22,12,.50) 0%,rgba(8,22,12,.10) 34%,rgba(8,22,12,.80) 100%)"></div>
 
     <div class="relative mx-auto w-full max-w-[1440px] px-6 pt-16 pb-14 sm:px-10 sm:pb-20">
@@ -88,7 +88,7 @@
             @foreach ($destinations as $destination)
                 <a href="{{ route('destinations', ['kind' => $destination['kind']]) }}"
                    class="group relative h-[250px] overflow-hidden rounded-[24px] bg-cover bg-center shadow-glass transition-transform duration-300 hover:-translate-y-1.5"
-                   style="background-image:url('{{ travel_img($destination['img'], 1000, 700) }}')">
+                   style="background-image:url('{{ travel_img($destination['img'], 1000, 700, travel_place($destination['name']).','.$destination['country']) }}')">
                     <span class="absolute inset-0" style="background:linear-gradient(180deg,rgba(8,22,12,.06),rgba(8,22,12,.74))"></span>
                     <span class="absolute inset-x-4.5 bottom-4 block text-left">
                         <span class="block text-[11px] font-semibold tracking-[0.1em] text-white/70 uppercase">{{ travel_label(config('travel.kind_labels'), $destination['kind']) }}</span>
@@ -135,7 +135,7 @@
                             {{ travel_t($quote['text']) }}
                         </blockquote>
                         <div class="flex items-center gap-3">
-                            <span class="h-11 w-11 shrink-0 rounded-full bg-[#dfe5de] bg-cover bg-center" style="background-image:url('{{ travel_img($quote['seed'], 160, 160) }}')"></span>
+                            <span class="h-11 w-11 shrink-0 rounded-full bg-[#dfe5de] bg-cover bg-center" style="background-image:url('{{ travel_img($quote['seed'], 160, 160, 'portrait,person') }}')"></span>
                             <span class="text-[13.5px] text-ink/60"><strong class="font-semibold text-ink">{{ $quote['who'] }}</strong><br>{{ $quote['meta'] }}</span>
                         </div>
                     </div>
@@ -163,7 +163,7 @@
             @foreach ($albums as $album)
                 <a href="{{ route('gallery.album', $album['slug']) }}"
                    class="group relative h-[290px] w-[clamp(260px,26vw,330px)] shrink-0 snap-start overflow-hidden rounded-[26px] bg-cover bg-center transition-transform duration-300 hover:-translate-y-1.5"
-                   style="background-image:url('{{ travel_img($album['seed'].'-0', 1000, 700) }}')">
+                   style="background-image:url('{{ travel_img($album['seed'].'-0', 1000, 700, $album['where']) }}')">
                     <span class="absolute inset-0" style="background:linear-gradient(180deg,rgba(8,22,12,.05),rgba(8,22,12,.76))"></span>
                     <span class="absolute inset-x-4.5 bottom-4 block text-left">
                         <span class="block text-lg font-semibold tracking-[-.015em] text-white" style="font-family:var(--font-heading)">{{ travel_t($album['title']) }}</span>

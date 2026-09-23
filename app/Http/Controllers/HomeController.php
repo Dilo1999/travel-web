@@ -9,13 +9,15 @@ class HomeController extends Controller
         $packages = collect(config('travel.packages'));
         $themeImages = config('travel.theme_images');
 
-        $themeCards = collect(config('travel.themes'))->map(function (string $theme) use ($packages, $themeImages) {
+        $themeKeywords = config('travel.theme_photo_keywords');
+
+        $themeCards = collect(config('travel.themes'))->map(function (string $theme) use ($packages, $themeImages, $themeKeywords) {
             $hasInbound = $packages->where('theme', $theme)->where('kind', 'Inbound')->isNotEmpty();
 
             return [
                 'key' => $theme,
                 'label' => travel_label(config('travel.theme_labels'), $theme),
-                'img' => travel_img($themeImages[$theme] ?? $theme, 900, 700),
+                'img' => travel_img($themeImages[$theme] ?? $theme, 900, 700, $themeKeywords[$theme] ?? $theme),
                 'count' => $packages->where('theme', $theme)->count(),
                 'kind' => $hasInbound ? 'Inbound' : 'Outbound',
             ];

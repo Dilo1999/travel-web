@@ -31,18 +31,18 @@ class GalleryController extends Controller
 
         return view('gallery.album', [
             'album' => $album,
-            'shots' => $this->albumShots($album['seed'], $album['count']),
+            'shots' => $this->albumShots($album['seed'], $album['count'], $album['where']),
         ]);
     }
 
-    private function albumShots(string $seed, int $count): array
+    private function albumShots(string $seed, int $count, string $keywords): array
     {
         $heights = [1100, 760, 900, 1200, 800, 980];
         $displayHeights = [300, 220, 260, 320, 240, 280];
 
-        return collect(range(0, $count - 1))->map(function (int $i) use ($seed, $heights, $displayHeights) {
+        return collect(range(0, $count - 1))->map(function (int $i) use ($seed, $heights, $displayHeights, $keywords) {
             return [
-                'img' => travel_img($seed.'-'.$i, 900, $heights[$i % 6]),
+                'img' => travel_img($seed.'-'.$i, 900, $heights[$i % 6], $keywords),
                 'height' => $displayHeights[$i % 6],
             ];
         })->all();

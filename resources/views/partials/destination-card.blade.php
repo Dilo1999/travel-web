@@ -1,6 +1,6 @@
 @php $destination ??= null; @endphp
 <article class="glass-strong flex flex-col overflow-hidden rounded-[28px] transition-transform duration-300 hover:-translate-y-2">
-    <div class="relative h-[210px] bg-[#dfe5de] bg-cover bg-center" style="background-image:url('{{ travel_img($destination['img'], 1000, 700) }}')">
+    <div class="relative h-[210px] bg-[#dfe5de] bg-cover bg-center" style="background-image:url('{{ travel_img($destination['img'], 1000, 700, travel_place($destination['name']).','.$destination['country']) }}')">
         <span class="absolute top-4 left-4 rounded-full bg-white/85 px-3.5 py-1.5 text-[11.5px] font-bold tracking-[0.05em] text-accent-800 uppercase backdrop-blur-md">
             {{ travel_label(config('travel.kind_labels'), $destination['kind']) }}
         </span>

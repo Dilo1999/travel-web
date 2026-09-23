@@ -10,6 +10,7 @@
     'title' => __('site.gallery.hero_title'),
     'subtitle' => __('site.gallery.meta_description'),
     'image' => 'niohero-gallery',
+    'keywords' => 'camera,travel photography',
 ])
 
 <section class="px-4 pt-8 sm:px-5">
@@ -26,12 +27,12 @@
     <div class="mx-auto grid max-w-[1400px] grid-cols-1 gap-5.5 sm:grid-cols-2 lg:grid-cols-3">
         @foreach ($albums as $album)
             <a href="{{ route('gallery.album', $album['slug']) }}" class="glass-strong block overflow-hidden rounded-[28px] transition-transform duration-300 hover:-translate-y-2">
-                <span class="relative block h-[230px] bg-[#dfe5de] bg-cover bg-center" style="background-image:url('{{ travel_img($album['seed'].'-0', 1000, 700) }}')">
+                <span class="relative block h-[230px] bg-[#dfe5de] bg-cover bg-center" style="background-image:url('{{ travel_img($album['seed'].'-0', 1000, 700, $album['where']) }}')">
                     <span class="absolute inset-0" style="background:linear-gradient(180deg,rgba(8,22,12,0),rgba(8,22,12,.55))"></span>
                     <span class="absolute top-3.5 right-3.5 rounded-full bg-white/85 px-3 py-1.5 text-[11.5px] font-bold text-accent-800 backdrop-blur-md">{{ $album['count'] }} {{ __('site.common.photos') }}</span>
                     <span class="absolute bottom-3.5 left-3.5 flex gap-1.5">
                         @foreach ([1, 2, 3] as $i)
-                            <span class="block h-11 w-11 rounded-xl border-2 border-white/80 bg-[#dfe5de] bg-cover bg-center" style="background-image:url('{{ travel_img($album['seed'].'-'.$i, 300, 300) }}')"></span>
+                            <span class="block h-11 w-11 rounded-xl border-2 border-white/80 bg-[#dfe5de] bg-cover bg-center" style="background-image:url('{{ travel_img($album['seed'].'-'.$i, 300, 300, $album['where']) }}')"></span>
                         @endforeach
                     </span>
                 </span>
@@ -57,7 +58,7 @@
                     };
                 @endphp
                 <a href="{{ $video['url'] }}" target="_blank" rel="noopener" class="glass-strong block overflow-hidden rounded-[28px] transition-transform duration-300 hover:-translate-y-2">
-                    <span class="relative block h-[220px] bg-[#dfe5de] bg-cover bg-center" style="background-image:url('{{ travel_img($video['seed'], 1000, 700) }}')">
+                    <span class="relative block h-[220px] bg-[#dfe5de] bg-cover bg-center" style="background-image:url('{{ travel_img($video['seed'], 1000, 700, travel_place($video['meta'])) }}')">
                         <span class="absolute inset-0" style="background:linear-gradient(180deg,rgba(8,22,12,.1),rgba(8,22,12,.6))"></span>
                         <span class="absolute inset-0 grid place-items-center">
                             <span class="grid h-[62px] w-[62px] place-items-center rounded-full bg-white/90 shadow-[0_12px_30px_-10px_rgba(8,26,14,.7)]">

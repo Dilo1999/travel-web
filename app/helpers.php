@@ -3,11 +3,47 @@
 if (! function_exists('travel_img')) {
     /**
      * Placeholder photography URL until real photos are supplied.
-     * Deterministic by seed, so the same card always shows the same image.
+     *
+     * When $keywords is given, sources a keyword-matched photo (LoremFlickr)
+     * so the placeholder actually resembles the place/subject shown, instead
+     * of a completely unrelated random image. The `lock` param pins it to one
+     * photo per seed+keyword combination, so the same card always shows the
+     * same image rather than a different random match on every load.
+     * Falls back to a random-by-seed photo when no keyword is available.
      */
-    function travel_img(string $seed, int $width = 1000, int $height = 700): string
+    function travel_img(string $seed, int $width = 1000, int $height = 700, ?string $keywords = null): string
     {
+        if ($keywords) {
+            $haystack = strtolower($keywords);
+            $photos = config('travel.stock_photos', []);
+            uksort($photos, fn ($a, $b) => strlen($b) <=> strlen($a));
+
+            foreach ($photos as $key => $url) {
+                if (str_contains($haystack, $key)) {
+                    return $url;
+                }
+            }
+        }
+
         return "https://picsum.photos/seed/{$seed}/{$width}/{$height}";
+    }
+}
+
+if (! function_exists('travel_place')) {
+    /**
+     * Reduce a compound location string (e.g. "Kandy & the hill country",
+     * "Galle · Mirissa · Ella") down to a single, clean place name suitable
+     * as an image-search keyword. Always resolves from the English value,
+     * since place names are proper nouns and search better untranslated.
+     */
+    function travel_place(array|string $field): string
+    {
+        $value = is_array($field) ? ($field['en'] ?? reset($field)) : $field;
+        $value = explode('·', $value)[0];
+        $value = preg_split('/\s*&\s*|\s+and\s+/i', $value)[0];
+        $value = preg_replace('/^the\s+/i', '', trim($value));
+
+        return trim($value);
     }
 }
 

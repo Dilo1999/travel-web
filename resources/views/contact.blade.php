@@ -10,6 +10,7 @@
     'title' => __('site.contact.hero_title'),
     'subtitle' => __('site.contact.hero_subtitle'),
     'image' => 'niooffice3',
+    'keywords' => 'office,Colombo',
 ])
 
 <section class="px-4 pt-8 pb-16 sm:px-5">
@@ -140,7 +141,7 @@
                 <div class="flex justify-between gap-3.5 text-sm"><span class="text-ink/45">{{ __('site.contact.email_label') }}</span><strong class="text-right">{{ config('travel.brand.email') }}</strong></div>
                 <div class="mt-2 flex justify-between gap-3.5 text-sm"><span class="text-ink/45">{{ __('site.contact.hours_label') }}</span><strong class="text-right">{{ __('site.contact.hours_value') }}</strong></div>
             </div>
-            <div class="h-[230px] rounded-[26px] bg-[#dfe5de] bg-cover bg-center shadow-glass" style="background-image:url('{{ travel_img('niooffice3', 900, 700) }}')"></div>
+            <div class="h-[230px] rounded-[26px] bg-[#dfe5de] bg-cover bg-center shadow-glass" style="background-image:url('{{ travel_img('niooffice3', 900, 700, 'office,Colombo') }}')"></div>
         </div>
     </div>
 </section>

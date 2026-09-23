@@ -21,7 +21,7 @@
                     {{ travel_t($quote['text']) }}
                 </blockquote>
                 <div class="flex items-center gap-3">
-                    <span class="h-11 w-11 shrink-0 rounded-full bg-[#dfe5de] bg-cover bg-center" style="background-image:url('{{ travel_img($quote['seed'], 160, 160) }}')"></span>
+                    <span class="h-11 w-11 shrink-0 rounded-full bg-[#dfe5de] bg-cover bg-center" style="background-image:url('{{ travel_img($quote['seed'], 160, 160, 'portrait,person') }}')"></span>
                     <div class="flex-1">
                         <div class="text-sm font-bold">{{ $quote['who'] }}</div>
                         <div class="mt-0.5 text-xs text-ink/45">{{ $quote['meta'] }}</div>

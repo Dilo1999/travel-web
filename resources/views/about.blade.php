@@ -10,6 +10,7 @@
     'title' => __('site.about.hero_title'),
     'subtitle' => __('site.about.hero_subtitle'),
     'image' => 'niohero-about',
+    'keywords' => 'Colombo,Sri Lanka',
 ])
 
 <section class="px-4 pt-10 sm:px-5">
@@ -20,10 +21,10 @@
             <p class="max-w-[56ch] text-[16.5px] leading-relaxed text-ink/60">{{ travel_t(config('travel.brand.founded_copy')) }}</p>
         </div>
         <div class="grid grid-cols-2 gap-4">
-            <div class="h-[200px] rounded-[26px] bg-[#dfe5de] bg-cover bg-center" style="background-image:url('{{ travel_img('nioab1', 700, 700) }}')"></div>
-            <div class="mt-7 h-[200px] rounded-[26px] bg-[#dfe5de] bg-cover bg-center" style="background-image:url('{{ travel_img('nioab2', 700, 700) }}')"></div>
-            <div class="h-[200px] rounded-[26px] bg-[#dfe5de] bg-cover bg-center" style="background-image:url('{{ travel_img('nioab3', 700, 700) }}')"></div>
-            <div class="mt-7 h-[200px] rounded-[26px] bg-[#dfe5de] bg-cover bg-center" style="background-image:url('{{ travel_img('nioab4', 700, 700) }}')"></div>
+            <div class="h-[200px] rounded-[26px] bg-[#dfe5de] bg-cover bg-center" style="background-image:url('{{ travel_img('nioab1', 700, 700, 'landscape') }}')"></div>
+            <div class="mt-7 h-[200px] rounded-[26px] bg-[#dfe5de] bg-cover bg-center" style="background-image:url('{{ travel_img('nioab2', 700, 700, 'kandy') }}')"></div>
+            <div class="h-[200px] rounded-[26px] bg-[#dfe5de] bg-cover bg-center" style="background-image:url('{{ travel_img('nioab3', 700, 700, 'nuwara eliya') }}')"></div>
+            <div class="mt-7 h-[200px] rounded-[26px] bg-[#dfe5de] bg-cover bg-center" style="background-image:url('{{ travel_img('nioab4', 700, 700, 'jeep') }}')"></div>
         </div>
     </div>
 </section>
@@ -37,7 +38,7 @@
         <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             @foreach ($staff as $member)
                 <div class="glass-strong overflow-hidden rounded-[26px] transition-transform duration-300 hover:-translate-y-1.5">
-                    <div class="h-[230px] bg-[#dfe5de] bg-cover bg-center" style="background-image:url('{{ travel_img($member['seed'], 700, 800) }}')"></div>
+                    <div class="h-[230px] bg-[#dfe5de] bg-cover bg-center" style="background-image:url('{{ travel_img($member['seed'], 700, 800, 'portrait,professional') }}')"></div>
                     <div class="px-5.5 pt-5 pb-5.5">
                         <div class="text-[17px] font-semibold tracking-[-.015em]" style="font-family:var(--font-heading)">{{ $member['name'] }}</div>
                         <div class="mt-1 text-[12.5px] font-semibold text-accent-700">{{ travel_t($member['role']) }}</div>

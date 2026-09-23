@@ -10,6 +10,7 @@
     'title' => __('site.destinations.hero_title'),
     'subtitle' => __('site.destinations.hero_subtitle'),
     'image' => 'niohero-destinations',
+    'keywords' => 'Sri Lanka,coast',
 ])
 
 <section class="px-4 pt-8 sm:px-5">

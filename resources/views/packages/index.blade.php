@@ -10,6 +10,7 @@
     'title' => __('site.packages.hero_title'),
     'subtitle' => __('site.packages.hero_subtitle'),
     'image' => 'niohero-packages',
+    'keywords' => 'Sri Lanka,landscape',
 ])
 
 <section class="px-4 pt-8 sm:px-5">

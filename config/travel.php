@@ -120,6 +120,65 @@ return [
         'City break' => 'nioth-city',
     ],
 
+    // Image-search keywords for the theme cards on the home page, so each
+    // placeholder photo actually resembles the theme instead of being random.
+    'theme_photo_keywords' => [
+        'Honeymoon' => 'honeymoon,tropical,beach',
+        'Wildlife' => 'safari,leopard,wildlife',
+        'Reef & diving' => 'coral,scuba diving',
+        'Culture & heritage' => 'heritage,carving',
+        'Beach' => 'tropical,beach',
+        'Adventure' => 'jungle,rainforest',
+        'Pilgrimage' => 'temple,pilgrimage',
+        'City break' => 'city,skyline',
+    ],
+
+    // Real, freely-licensed photos (Wikimedia Commons) matched to the places/
+    // themes used across the site, resolved via travel_img()'s keyword lookup
+    // in app/helpers.php. Keys are matched as substrings against the keyword
+    // string passed at each call site — longest key wins on overlap. Falls
+    // back to a random placeholder (picsum) for anything not listed here.
+    'stock_photos' => [
+        'colombo' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Colombo_Skyline_Jan_2022.jpg/1920px-Colombo_Skyline_Jan_2022.jpg',
+        'kandy' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/SL_Kandy_asv2020-01_img34_Sacred_Tooth_Temple.jpg/1920px-SL_Kandy_asv2020-01_img34_Sacred_Tooth_Temple.jpg',
+        'yala' => 'https://upload.wikimedia.org/wikipedia/commons/6/60/Leopard_in_Yala_National_Park.jpg',
+        'galle' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Dutch_Galle_Fort%2C_Sri_Lanka.jpg/1920px-Dutch_Galle_Fort%2C_Sri_Lanka.jpg',
+        'trincomalee' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Main_Rock_in_Pigeon_Island_National_Park.jpg/1920px-Main_Rock_in_Pigeon_Island_National_Park.jpg',
+        'sigiriya' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Sigiriya%2C_Rock_Fortress.jpg/1920px-Sigiriya%2C_Rock_Fortress.jpg',
+        'cultural triangle' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Sigiriya%2C_Rock_Fortress.jpg/1920px-Sigiriya%2C_Rock_Fortress.jpg',
+        'maldives' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/MaldivesBungalows.jpg/1920px-MaldivesBungalows.jpg',
+        'male' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/MaldivesBungalows.jpg/1920px-MaldivesBungalows.jpg',
+        'atoll' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/MaldivesBungalows.jpg/1920px-MaldivesBungalows.jpg',
+        'thailand' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Temple_of_the_Emerald_Buddha.jpg/1920px-Temple_of_the_Emerald_Buddha.jpg',
+        'bangkok' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Temple_of_the_Emerald_Buddha.jpg/1920px-Temple_of_the_Emerald_Buddha.jpg',
+        'singapore' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/ArtScience_Museum%2C_Marina_Bay_Sands%2C_Singapore.jpg/1920px-ArtScience_Museum%2C_Marina_Bay_Sands%2C_Singapore.jpg',
+        'city' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/ArtScience_Museum%2C_Marina_Bay_Sands%2C_Singapore.jpg/1920px-ArtScience_Museum%2C_Marina_Bay_Sands%2C_Singapore.jpg',
+        'dubai' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Burj_Khalifa_Dubai%2C_UAE_at_Sunset_001_by_Eric_Chamchoum.jpg/1920px-Burj_Khalifa_Dubai%2C_UAE_at_Sunset_001_by_Eric_Chamchoum.jpg',
+        'nepal' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Kathmandu_Durbar_Square%2C_Shiva_Parvati_Temple%2C_Nepal_%28edit%29.jpg/1920px-Kathmandu_Durbar_Square%2C_Shiva_Parvati_Temple%2C_Nepal_%28edit%29.jpg',
+        'vietnam' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Constellation_of_Literature_pavilion%2C_Temple_of_Literature%2C_Hanoi%2C_Vietnam%2C_20240123_0939_3103.jpg/1920px-Constellation_of_Literature_pavilion%2C_Temple_of_Literature%2C_Hanoi%2C_Vietnam%2C_20240123_0939_3103.jpg',
+        'nuwara eliya' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Sri_Lanka%2C_Tea_plantations%2C_Nuwara_Eliya%2C_Picking_tea_leaves.jpg/1920px-Sri_Lanka%2C_Tea_plantations%2C_Nuwara_Eliya%2C_Picking_tea_leaves.jpg',
+        'ella' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Nine-Arch_Bridge_in_Sri_Lanka.jpg/1920px-Nine-Arch_Bridge_in_Sri_Lanka.jpg',
+        'hill country' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Nine-Arch_Bridge_in_Sri_Lanka.jpg/1920px-Nine-Arch_Bridge_in_Sri_Lanka.jpg',
+        'bentota' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Bentota_beach_in_evening.jpg/1920px-Bentota_beach_in_evening.jpg',
+        'minneriya' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Elephants_gather_for_water_in_the_plains_at_Minneriya_National_Park_in_Sri_Lanka._It_is_one_of_the_largest_gathering_of_-_Flickr_-_Al_Jazeera_English.jpg/1920px-Elephants_gather_for_water_in_the_plains_at_Minneriya_National_Park_in_Sri_Lanka._It_is_one_of_the_largest_gathering_of_-_Flickr_-_Al_Jazeera_English.jpg',
+        'habarana' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Elephants_gather_for_water_in_the_plains_at_Minneriya_National_Park_in_Sri_Lanka._It_is_one_of_the_largest_gathering_of_-_Flickr_-_Al_Jazeera_English.jpg/1920px-Elephants_gather_for_water_in_the_plains_at_Minneriya_National_Park_in_Sri_Lanka._It_is_one_of_the_largest_gathering_of_-_Flickr_-_Al_Jazeera_English.jpg',
+        'knuckles' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Knuckles_Mountain_Range_5.jpg/1920px-Knuckles_Mountain_Range_5.jpg',
+        'chilaw' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Chilaw_Sand_Spits%2C_Sri_Lanka.jpg/1920px-Chilaw_Sand_Spits%2C_Sri_Lanka.jpg',
+        'coast' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Bentota_beach_in_evening.jpg/1920px-Bentota_beach_in_evening.jpg',
+        'landscape' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Ella_-_Sri_lanka_-_Flickr_-_Damith_Danthanarayana_Photography.jpg/1920px-Ella_-_Sri_lanka_-_Flickr_-_Damith_Danthanarayana_Photography.jpg',
+        'camera' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Nine-Arch_Bridge_in_Sri_Lanka.jpg/1920px-Nine-Arch_Bridge_in_Sri_Lanka.jpg',
+        'honeymoon' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Koh_Mak_%28island%29%2C_Thailand%2C_Palm_trees_on_the_beach.jpg/1920px-Koh_Mak_%28island%29%2C_Thailand%2C_Palm_trees_on_the_beach.jpg',
+        'tropical' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Koh_Mak_%28island%29%2C_Thailand%2C_Palm_trees_on_the_beach.jpg/1920px-Koh_Mak_%28island%29%2C_Thailand%2C_Palm_trees_on_the_beach.jpg',
+        'safari' => 'https://upload.wikimedia.org/wikipedia/commons/6/60/Leopard_in_Yala_National_Park.jpg',
+        'jeep' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Kapama_Game_Reserve_safari_photo_en_Jeep.jpg/1920px-Kapama_Game_Reserve_safari_photo_en_Jeep.jpg',
+        'coral' => 'https://upload.wikimedia.org/wikipedia/commons/7/7b/Elkhorn_coral_Horseshoe_Reef_with_diver.png',
+        'heritage' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/SL_Kandy_asv2020-01_img34_Sacred_Tooth_Temple.jpg/1920px-SL_Kandy_asv2020-01_img34_Sacred_Tooth_Temple.jpg',
+        'jungle' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Inside_the_tropical_rainforest_%2811464713995%29.jpg/1920px-Inside_the_tropical_rainforest_%2811464713995%29.jpg',
+        'temple' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Kathmandu_Durbar_Square%2C_Shiva_Parvati_Temple%2C_Nepal_%28edit%29.jpg/1920px-Kathmandu_Durbar_Square%2C_Shiva_Parvati_Temple%2C_Nepal_%28edit%29.jpg',
+        'office' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Computer_keyboard_placed_on_a_black_desk_in_a_modern_workspace.jpg/1920px-Computer_keyboard_placed_on_a_black_desk_in_a_modern_workspace.jpg',
+        'portrait' => 'https://upload.wikimedia.org/wikipedia/commons/6/67/Scott_James_Reeves_Portrait_%E2%80%93_Professional_Headshot_of_Scott_James_Reeves_in_Blue_Blazer.jpg',
+    ],
+
     'packages' => [
         [
             'id' => 'p1', 'slug' => 'emerald-coast-honeymoon', 'theme' => 'Honeymoon', 'country' => 'Sri Lanka', 'kind' => 'Inbound', 'days' => 6, 'pax' => '2 pax', 'img' => 'niop1',

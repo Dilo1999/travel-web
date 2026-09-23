@@ -52,8 +52,9 @@ class PackageController extends Controller
             abort(Response::HTTP_NOT_FOUND);
         }
 
+        $keywords = travel_place($package['where']).','.$package['country'];
         $detailShots = collect(range(1, 4))
-            ->map(fn ($i) => travel_img('niodet'.$package['id'].'-'.$i, 700, 500));
+            ->map(fn ($i) => travel_img('niodet'.$package['id'].'-'.$i, 700, 500, $keywords));
 
         return view('packages.show', [
             'package' => $package,
