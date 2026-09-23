@@ -1,5 +1,9 @@
 @php
     $isHome = request()->routeIs('home');
+    // Pages that open with a full-width image hero — the header can start
+    // transparent over it and turn solid glass once the page is scrolled.
+    $heroRoutes = ['home', 'destinations', 'packages.index', 'packages.show', 'gallery', 'about', 'contact'];
+    $hasHero = collect($heroRoutes)->contains(fn ($route) => request()->routeIs($route));
     $navLinks = [
         ['label' => 'Home', 'route' => 'home', 'active' => request()->routeIs('home')],
         ['label' => 'Destinations', 'route' => 'destinations', 'active' => request()->routeIs('destinations')],
@@ -13,8 +17,8 @@
 <header class="site-header sticky top-0 z-50">
     <div
         data-nav-bar
-        @if($isHome) data-transparent-hero @endif
-        class="relative transition-colors duration-300 {{ $isHome ? '' : 'header-bar text-ink' }}"
+        @if($hasHero) data-transparent-hero @endif
+        class="relative transition-colors duration-300 {{ $hasHero ? '' : 'header-bar text-ink' }}"
     >
         <div class="mx-auto flex h-20 max-w-[1400px] items-center gap-1 px-4 sm:px-6 lg:px-8">
             <a href="{{ route('home') }}" class="mr-auto flex items-center">

@@ -5,7 +5,7 @@
 
 @section('content')
 
-<section class="relative flex min-h-[440px] items-end overflow-hidden bg-[#dfe5de] bg-cover bg-center sm:min-h-[560px]"
+<section class="relative -mt-20 flex min-h-[440px] items-end overflow-hidden bg-[#dfe5de] bg-cover bg-center sm:min-h-[560px]"
      style="background-image:url('{{ travel_img($package['img'], 1920, 900) }}')">
     <div class="absolute inset-0" style="background:linear-gradient(180deg,rgba(8,22,12,.36),rgba(8,22,12,.84))"></div>
     <div class="relative mx-auto w-full max-w-[1400px] px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-12">
