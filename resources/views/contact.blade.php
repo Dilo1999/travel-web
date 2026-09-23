@@ -5,15 +5,14 @@
 
 @section('content')
 
-<section class="px-4 pt-11 pb-6.5 sm:px-5">
-    <div class="mx-auto max-w-[1400px]">
-        <span class="section-kicker">Contact</span>
-        <h1 class="mt-4 mb-3.5 text-[clamp(32px,4.4vw,60px)] leading-[1.02] tracking-[-.035em]">Tell us who is travelling</h1>
-        <p class="max-w-[62ch] text-[16.5px] text-ink/60">One named coordinator answers every enquiry within a working day, in Colombo or from our India desk.</p>
-    </div>
-</section>
+@include('partials.page-hero', [
+    'kicker' => 'Contact',
+    'title' => 'Tell us who is travelling',
+    'subtitle' => 'One named coordinator answers every enquiry within a working day, in Colombo or from our India desk.',
+    'image' => 'niooffice3',
+])
 
-<section class="px-4 pb-16 sm:px-5">
+<section class="px-4 pt-8 pb-16 sm:px-5">
     <div class="mx-auto grid max-w-[1400px] grid-cols-1 items-start gap-6 lg:grid-cols-[1.3fr_1fr]">
 
         <div class="glass-strong rounded-[30px] p-6 sm:p-10">

@@ -5,10 +5,15 @@
 
 @section('content')
 
-<section class="px-4 pt-11 sm:px-5">
+@include('partials.page-hero', [
+    'kicker' => $totalCount.' packages',
+    'title' => 'Handpicked tours for every kind of traveller',
+    'subtitle' => 'Inbound Sri Lanka circuits and outbound holidays, all run or arranged end to end by Nio. Filter by theme, destination and duration to find yours.',
+    'image' => 'niohero-packages',
+])
+
+<section class="px-4 pt-8 sm:px-5">
     <div class="mx-auto max-w-[1400px]">
-        <span class="section-kicker">{{ $totalCount }} packages</span>
-        <h1 class="mt-4 mb-6.5 text-[clamp(34px,4.6vw,64px)] leading-[1] tracking-[-.035em]">Packages</h1>
 
         <div class="glass flex flex-wrap gap-7 rounded-[26px] p-5.5 sm:p-6">
             <div>

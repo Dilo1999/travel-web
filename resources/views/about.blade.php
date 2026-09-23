@@ -5,11 +5,18 @@
 
 @section('content')
 
-<section class="px-4 pt-11 sm:px-5">
+@include('partials.page-hero', [
+    'kicker' => config('travel.brand.legal_name'),
+    'title' => 'A Colombo travel company that runs its own tours.',
+    'subtitle' => 'Founded in 2011 with one van and a Colombo phone number — now running inbound tours across every province of Sri Lanka with our own guides and vehicles.',
+    'image' => 'niohero-about',
+])
+
+<section class="px-4 pt-10 sm:px-5">
     <div class="mx-auto grid max-w-[1400px] grid-cols-1 items-center gap-10 lg:grid-cols-[1.15fr_1fr]">
         <div>
-            <span class="section-kicker">{{ config('travel.brand.legal_name') }}</span>
-            <h1 class="mt-4 mb-5 text-[clamp(32px,4.4vw,60px)] leading-[1.02] tracking-[-.035em]">A Colombo travel company that runs its own tours.</h1>
+            <span class="section-kicker">Our story</span>
+            <h2 class="mt-4 mb-5 text-[clamp(26px,3vw,40px)] tracking-[-.03em]">How Nio started</h2>
             <p class="max-w-[56ch] text-[16.5px] leading-relaxed text-ink/60">{{ config('travel.brand.founded_copy') }}</p>
         </div>
         <div class="grid grid-cols-2 gap-4">

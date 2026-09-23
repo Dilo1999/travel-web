@@ -5,11 +5,15 @@
 
 @section('content')
 
-<section class="px-4 pt-11 sm:px-5">
+@include('partials.page-hero', [
+    'kicker' => 'Albums & clips',
+    'title' => 'Photographs and clips from the road',
+    'subtitle' => 'One album per tour, plus the clips our guests and guides post from the road.',
+    'image' => 'niohero-gallery',
+])
+
+<section class="px-4 pt-8 sm:px-5">
     <div class="mx-auto max-w-[1400px]">
-        <span class="section-kicker">Albums &amp; clips</span>
-        <h1 class="mt-4 mb-3.5 text-[clamp(34px,4.6vw,64px)] leading-[1] tracking-[-.035em]">Gallery</h1>
-        <p class="mb-6 max-w-[60ch] text-base text-ink/60">One album per tour, plus the clips our guests and guides post from the road.</p>
         <div class="flex flex-wrap gap-2">
             <a href="{{ route('gallery', ['tab' => 'photos']) }}" class="chip {{ $tab === 'photos' ? 'chip-active' : 'chip-inactive' }}">Tour albums</a>
             <a href="{{ route('gallery', ['tab' => 'videos']) }}" class="chip {{ $tab === 'videos' ? 'chip-active' : 'chip-inactive' }}">Video gallery</a>
