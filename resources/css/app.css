@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 @import "tailwindcss";
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
@@ -5,152 +6,192 @@
 @source '../**/*.blade.php';
 @source '../**/*.js';
 
-/* Al Zaha theme */
+/* Nio Travel and Tours theme */
 @theme {
-  --color-bronze: #6d5a2c;
-  --color-gold: #c19b46;
-  --color-gold-light: #f4c157;
-  --color-cream: #f7f4eb;
+  --font-heading: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+
+  --color-canvas: #f4f6f3;
+  --color-surface: #ffffff;
+  --color-ink: #14201a;
+  --color-divider: rgba(20, 32, 26, .10);
+
+  --color-accent-100: #eaf7ec;
+  --color-accent-200: #cfeed6;
+  --color-accent-300: #aedaa2;
+  --color-accent-400: #74cb88;
+  --color-accent-500: #43b25a;
+  --color-accent-600: #25873a;
+  --color-accent-700: #1c6b2f;
+  --color-accent-800: #154f24;
+  --color-accent-900: #0e331a;
+  --color-accent: #2f9e41;
+
+  --color-brand-blue: #1b75bc;
+
+  --shadow-glass: 0 22px 60px -24px rgba(16, 40, 22, .30);
 }
 
-/* Scroll & load animations (Framer Motion–style) */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  letter-spacing: -.02em;
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full font-semibold whitespace-nowrap transition-all duration-300 ease-out;
+    font-family: var(--font-heading);
+  }
+  .btn-primary {
+    @apply bg-accent text-white hover:bg-accent-600 hover:-translate-y-0.5;
+    box-shadow: 0 12px 28px -12px rgba(47, 158, 65, .7);
+  }
+  .btn-secondary {
+    @apply border border-black/10 bg-white/60 text-ink backdrop-blur-md hover:bg-white hover:-translate-y-0.5;
+  }
+  .btn-dark {
+    @apply border border-white/30 bg-white/15 text-white backdrop-blur-md hover:bg-white/25;
+  }
+
+  .glass {
+    background: rgba(255, 255, 255, .58);
+    backdrop-filter: blur(18px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, .72);
+    box-shadow: var(--shadow-glass);
+  }
+  .glass-strong {
+    background: rgba(255, 255, 255, .80);
+    backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, .75);
+    box-shadow: var(--shadow-glass);
+  }
+
+  .chip {
+    @apply cursor-pointer rounded-full border px-4 py-2.5 text-[12.5px] font-semibold transition-all duration-200;
+    font-family: var(--font-body);
+  }
+  .chip-active {
+    @apply bg-accent text-white border-accent;
+  }
+  .chip-inactive {
+    @apply bg-white/60 text-ink border-black/10 hover:bg-white;
+  }
+
+  .field-label {
+    @apply mb-1.5 block text-[13px] font-medium text-ink/70;
+  }
+  .field-input {
+    @apply min-h-[46px] w-full rounded-2xl border border-black/10 bg-white/70 px-4 py-2.5 text-[14px] text-ink outline-none backdrop-blur-md transition placeholder:text-ink/35 focus:border-accent focus:ring-2 focus:ring-accent/20;
+  }
+
+  .section-kicker {
+    @apply block text-xs font-semibold uppercase tracking-[0.14em] text-accent-700;
+  }
+
+  .rail {
+    @apply flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-3 [-ms-overflow-style:none] [scrollbar-width:none];
+  }
+  .rail::-webkit-scrollbar {
+    display: none;
+  }
+  .rail-btn {
+    @apply grid h-10 w-10 shrink-0 place-items-center rounded-full border border-black/10 bg-white/70 text-ink transition hover:bg-white;
+  }
+}
+
+/* Home header: transparent over the hero video until the page is scrolled */
+[data-nav-bar][data-transparent-hero] {
+  background: rgba(255, 255, 255, .10);
+  border-color: rgba(255, 255, 255, .25);
+  color: #fff;
+  backdrop-filter: blur(8px);
+  box-shadow: none;
+}
+[data-nav-bar][data-transparent-hero] img[data-nav-logo] {
+  filter: brightness(0) invert(1);
+}
+[data-nav-bar][data-transparent-hero].is-solid {
+  background: rgba(255, 255, 255, .72);
+  border-color: rgba(255, 255, 255, .8);
+  color: var(--color-ink);
+  backdrop-filter: blur(22px) saturate(160%);
+  box-shadow: var(--shadow-glass);
+}
+[data-nav-bar][data-transparent-hero].is-solid img[data-nav-logo] {
+  filter: none;
+}
+[data-nav-bar] a,
+[data-nav-bar] button {
+  color: inherit;
+}
+
+@keyframes floatUp {
+  from { opacity: 0; transform: translateY(26px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes popIn {
+  from { opacity: 0; transform: translateY(14px) scale(.97); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes waPulse {
+  0% { box-shadow: 0 0 0 0 rgba(47, 158, 65, .5); }
+  70% { box-shadow: 0 0 0 20px rgba(47, 158, 65, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(47, 158, 65, 0); }
+}
+@keyframes slowZoom {
+  from { transform: scale(1.04); }
+  to { transform: scale(1.14); }
+}
+
+.animate-hero {
+  animation: floatUp .9s cubic-bezier(.2, .8, .2, 1) both;
+}
+.animate-hero-video {
+  animation: slowZoom 30s ease-in-out infinite alternate;
+}
+.animate-wa-pulse {
+  animation: waPulse 2.8s infinite;
+}
+.animate-pop-in {
+  animation: popIn .25s cubic-bezier(.2, .8, .2, 1) both;
+}
+
+/* Scroll reveal (paired with resources/js/animations.js) */
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
 }
-
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
 }
 
-@keyframes slideInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes slideInRight {
-  from {
-    opacity: 0;
-    transform: translateX(40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes scaleIn {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-/* Base typography (match React src/styles/theme.css) */
-:root {
-  --font-size: 16px;
-}
-html {
-  font-size: var(--font-size);
-  scroll-behavior: smooth;
-}
-@layer base {
-  h1 { @apply text-2xl font-medium leading-[1.5]; }
-  h2 { @apply text-xl font-medium leading-[1.5]; }
-  h3 { @apply text-lg font-medium leading-[1.5]; }
-  h4 { @apply text-base font-medium leading-[1.5]; }
-  label { @apply text-base font-medium leading-[1.5]; }
-  button { @apply text-base font-medium leading-[1.5]; }
-  input { @apply text-base font-normal leading-[1.5]; }
-}
-
-/* Initial state: hidden until in-view or .animate-now */
 .animate-on-scroll {
   opacity: 0;
 }
 .animate-on-scroll.in-view {
   opacity: 1;
 }
-
-.animate-now {
-  opacity: 0;
-}
-.animate-now.played {
-  opacity: 1;
-}
-
-/* Animation runners (triggered by .in-view or .played) */
-.animate-on-scroll[data-animate="fadeInUp"],
-.animate-now[data-animate="fadeInUp"] {
+.animate-on-scroll[data-animate="fadeInUp"] {
   transform: translateY(30px);
 }
-.animate-on-scroll[data-animate="fadeInUp"].in-view,
-.animate-now[data-animate="fadeInUp"].played {
-  animation: fadeInUp 0.8s ease-out forwards;
+.animate-on-scroll[data-animate="fadeInUp"].in-view {
+  animation: fadeInUp .8s ease-out forwards;
   animation-delay: calc(var(--delay, 0) * 1s);
 }
-
-.animate-on-scroll[data-animate="fadeIn"],
-.animate-now[data-animate="fadeIn"] {
-  transform: none;
-}
-.animate-on-scroll[data-animate="fadeIn"].in-view,
-.animate-now[data-animate="fadeIn"].played {
-  animation: fadeIn 0.6s ease-out forwards;
+.animate-on-scroll[data-animate="fadeIn"].in-view {
+  animation: fadeIn .6s ease-out forwards;
   animation-delay: calc(var(--delay, 0) * 1s);
-}
-
-.animate-on-scroll[data-animate="slideLeft"],
-.animate-now[data-animate="slideLeft"] {
-  transform: translateX(-40px);
-}
-.animate-on-scroll[data-animate="slideLeft"].in-view,
-.animate-now[data-animate="slideLeft"].played {
-  animation: slideInLeft 0.8s ease-out forwards;
-  animation-delay: calc(var(--delay, 0) * 1s);
-}
-
-.animate-on-scroll[data-animate="slideRight"],
-.animate-now[data-animate="slideRight"] {
-  transform: translateX(40px);
-}
-.animate-on-scroll[data-animate="slideRight"].in-view,
-.animate-now[data-animate="slideRight"].played {
-  animation: slideInRight 0.8s ease-out forwards;
-  animation-delay: calc(var(--delay, 0) * 1s);
-}
-
-.animate-on-scroll[data-animate="scaleIn"],
-.animate-now[data-animate="scaleIn"] {
-  transform: scale(0.95);
-}
-.animate-on-scroll[data-animate="scaleIn"].in-view,
-.animate-now[data-animate="scaleIn"].played {
-  animation: scaleIn 0.6s ease-out forwards;
-  animation-delay: calc(var(--delay, 0) * 1s);
-}
-
-/* Laravel welcome page dot backgrounds */
-@utility bg-dots-darker {
-    background-image: url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.22676 0C1.91374 0 2.45351 0.539773 2.45351 1.22676C2.45351 1.91374 1.91374 2.45351 1.22676 2.45351C0.539773 2.45351 0 1.91374 0 1.22676C0 0.539773 0.539773 0 1.22676 0Z' fill='rgba(0,0,0,0.07)'/%3E%3C/svg%3E");
-}
-@utility bg-dots-lighter {
-    background-image: url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.22676 0C1.91374 0 2.45351 0.539773 2.45351 1.22676C2.45351 1.91374 1.91374 2.45351 1.22676 2.45351C0.539773 2.45351 0 1.91374 0 1.22676C0 0.539773 0.539773 0 1.22676 0Z' fill='rgba(255,255,255,0.07)'/%3E%3C/svg%3E");
 }
