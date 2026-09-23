@@ -1,7 +1,8 @@
 /**
  * Small site-wide interactive bits: the header that turns from transparent
- * (over the home hero video) to a solid glass pill on scroll, the floating
- * WhatsApp panel, and the prev/next buttons on horizontal card rails.
+ * (over the home hero video) to a solid glass pill on scroll, the reading
+ * progress bar under the header, the floating WhatsApp panel, and the
+ * prev/next buttons on horizontal card rails.
  */
 
 function initHeaderScroll() {
@@ -12,6 +13,23 @@ function initHeaderScroll() {
     bar.classList.toggle('is-solid', window.scrollY > 80);
   };
   window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+}
+
+function initScrollProgress() {
+  const bar = document.querySelector('[data-scroll-progress]');
+  if (!bar) return;
+
+  const onScroll = () => {
+    const scrollTop = window.scrollY;
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = max > 0 ? Math.min(1, Math.max(0, scrollTop / max)) : 0;
+    bar.style.transform = `scaleX(${progress})`;
+    bar.style.opacity = scrollTop > 40 ? '1' : '0';
+  };
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
   onScroll();
 }
 
@@ -60,6 +78,7 @@ function initRails() {
 
 function initWidgets() {
   initHeaderScroll();
+  initScrollProgress();
   initWhatsapp();
   initRails();
 }

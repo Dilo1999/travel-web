@@ -11,33 +11,39 @@
 @endphp
 
 <header class="sticky top-0 z-50 px-3 pt-3 sm:px-5">
-    <div
-        data-nav-bar
-        @if($isHome) data-transparent-hero @endif
-        class="mx-auto flex max-w-[1400px] flex-wrap items-center gap-1 rounded-full border py-2 pr-2 pl-4 transition-colors duration-300 {{ $isHome ? '' : 'glass text-ink' }}"
-    >
-        <a href="{{ route('home') }}" class="mr-auto flex items-center py-1">
-            <img data-nav-logo src="{{ asset('images/logo/nio-logo.png') }}" alt="{{ config('travel.brand.name') }}" class="h-9 w-auto transition-[filter] duration-300">
-        </a>
+    <div class="relative mx-auto max-w-[1400px]">
+        <div
+            data-nav-bar
+            @if($isHome) data-transparent-hero @endif
+            class="flex flex-wrap items-center gap-1 rounded-full border py-2 pr-2 pl-4 transition-colors duration-300 {{ $isHome ? '' : 'glass text-ink' }}"
+        >
+            <a href="{{ route('home') }}" class="mr-auto flex items-center py-1">
+                <img data-nav-logo src="{{ asset('images/logo/nio-logo.png') }}" alt="{{ config('travel.brand.name') }}" class="h-9 w-auto transition-[filter] duration-300">
+            </a>
 
-        <nav class="hidden items-center gap-0.5 lg:flex">
-            @foreach ($navLinks as $link)
-                <a href="{{ route($link['route']) }}"
-                   class="rounded-full px-3 py-2 text-[12.5px] font-semibold whitespace-nowrap transition hover:bg-white/20 {{ $link['active'] ? 'underline decoration-2 underline-offset-4' : '' }}">
-                    {{ $link['label'] }}
-                </a>
-            @endforeach
-        </nav>
+            <nav class="hidden items-center gap-0.5 lg:flex">
+                @foreach ($navLinks as $link)
+                    <a href="{{ route($link['route']) }}"
+                       class="rounded-full px-3 py-2 text-[12.5px] font-semibold whitespace-nowrap transition hover:bg-white/20 {{ $link['active'] ? 'underline decoration-2 underline-offset-4' : '' }}">
+                        {{ $link['label'] }}
+                    </a>
+                @endforeach
+            </nav>
 
-        <a href="{{ route('contact') }}" class="btn btn-primary ml-2 hidden px-4 py-2.5 text-[12.5px] sm:inline-flex">
-            Enquire
-        </a>
+            <a href="{{ route('contact') }}" class="btn btn-primary ml-2 hidden px-4 py-2.5 text-[12.5px] sm:inline-flex">
+                Enquire
+            </a>
 
-        <button data-mobile-menu-toggle type="button" aria-expanded="false" aria-label="Open menu"
-                class="ml-1 grid h-10 w-10 shrink-0 place-items-center rounded-full transition hover:bg-white/20 lg:hidden">
-            <svg data-mobile-menu-icon="open" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-            <svg data-mobile-menu-icon="close" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="hidden"><path d="M6 6l12 12M18 6L6 18"/></svg>
-        </button>
+            <button data-mobile-menu-toggle type="button" aria-expanded="false" aria-label="Open menu"
+                    class="ml-1 grid h-10 w-10 shrink-0 place-items-center rounded-full transition hover:bg-white/20 lg:hidden">
+                <svg data-mobile-menu-icon="open" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+                <svg data-mobile-menu-icon="close" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="hidden"><path d="M6 6l12 12M18 6L6 18"/></svg>
+            </button>
+        </div>
+
+        {{-- Scroll progress bar: fills as the page is scrolled, hidden at the very top --}}
+        <div data-scroll-progress
+             class="pointer-events-none absolute inset-x-5 -bottom-[3px] h-[3px] origin-left scale-x-0 rounded-full bg-accent opacity-0 transition-[transform,opacity] duration-150 ease-out"></div>
     </div>
 </header>
 
