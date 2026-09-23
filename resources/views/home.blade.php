@@ -5,7 +5,7 @@
 @section('content')
 
 {{-- Hero --}}
-<section class="relative -mt-20 flex h-screen min-h-[560px] items-end overflow-hidden">
+<section class="relative -mt-20 flex h-[78vh] min-h-[440px] items-end overflow-hidden sm:h-screen sm:min-h-[560px]">
     <div class="animate-hero-video absolute inset-0 bg-[#0c1a10] bg-cover bg-center" style="background-image:url('{{ travel_img('niohero3', 1920, 1080, 'Sri Lanka,coast') }}')"></div>
     <div class="absolute inset-0" style="background:linear-gradient(180deg,rgba(8,22,12,.50) 0%,rgba(8,22,12,.10) 34%,rgba(8,22,12,.80) 100%)"></div>
 
