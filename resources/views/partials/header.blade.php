@@ -38,7 +38,8 @@
             <div class="ml-1 hidden items-center gap-0.5 rounded-full border border-white/25 bg-white/10 p-1 lg:flex">
                 @foreach (\Mcamara\LaravelLocalization\Facades\LaravelLocalization::getSupportedLocales() as $code => $properties)
                     <a href="{{ \Mcamara\LaravelLocalization\Facades\LaravelLocalization::getLocalizedURL($code, null, [], true) }}"
-                       class="rounded-full px-3 py-1.5 text-[12px] font-semibold whitespace-nowrap transition {{ app()->getLocale() === $code ? 'bg-white text-ink' : 'text-white/85 hover:bg-white/15' }}">
+                       @if(app()->getLocale() === $code) style="color: var(--color-ink)" @endif
+                       class="rounded-full px-3 py-1.5 text-[12px] font-semibold whitespace-nowrap transition {{ app()->getLocale() === $code ? 'bg-white' : 'text-white/85 hover:bg-white/15' }}">
                         {{ $localeLabels[$code] ?? strtoupper($code) }}
                     </a>
                 @endforeach
