@@ -5,20 +5,18 @@
 
 @section('content')
 
-<section class="px-3 pt-4.5 sm:px-5">
-    <div class="relative mx-auto flex min-h-[min(62vh,540px)] max-w-[1400px] items-end overflow-hidden rounded-[34px] bg-[#dfe5de] bg-cover bg-center shadow-[0_40px_90px_-40px_rgba(12,34,18,.5)]"
-         style="background-image:url('{{ travel_img($package['img'], 1200, 800) }}')">
-        <div class="absolute inset-0" style="background:linear-gradient(180deg,rgba(8,22,12,.36),rgba(8,22,12,.84))"></div>
-        <div class="relative w-full p-6 sm:p-10">
-            <a href="{{ route('packages.index') }}" class="text-[13px] font-semibold text-white/80">&larr; Packages</a>
-            <div class="my-4.5 flex flex-wrap gap-2">
-                <span class="rounded-full border border-white/30 bg-white/16 px-3.5 py-1.5 text-xs font-semibold text-white backdrop-blur-md">{{ $package['theme'] }}</span>
-                <span class="rounded-full border border-white/30 bg-white/16 px-3.5 py-1.5 text-xs font-semibold text-white backdrop-blur-md">{{ $package['where'] }}</span>
-                <span class="rounded-full border border-white/30 bg-white/16 px-3.5 py-1.5 text-xs font-semibold text-white backdrop-blur-md">{{ $package['days'] }} days</span>
-                <span class="rounded-full border border-white/30 bg-white/16 px-3.5 py-1.5 text-xs font-semibold text-white backdrop-blur-md">{{ $package['pax'] }}</span>
-            </div>
-            <h1 class="max-w-[24ch] text-[clamp(30px,4.4vw,62px)] leading-[1.02] tracking-[-.035em] text-white">{{ $package['title'] }}</h1>
+<section class="relative flex min-h-[440px] items-end overflow-hidden bg-[#dfe5de] bg-cover bg-center sm:min-h-[560px]"
+     style="background-image:url('{{ travel_img($package['img'], 1920, 900) }}')">
+    <div class="absolute inset-0" style="background:linear-gradient(180deg,rgba(8,22,12,.36),rgba(8,22,12,.84))"></div>
+    <div class="relative mx-auto w-full max-w-[1400px] px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-12">
+        <a href="{{ route('packages.index') }}" class="text-[13px] font-semibold text-white/80">&larr; Packages</a>
+        <div class="my-4.5 flex flex-wrap gap-2">
+            <span class="rounded-full border border-white/30 bg-white/16 px-3.5 py-1.5 text-xs font-semibold text-white backdrop-blur-md">{{ $package['theme'] }}</span>
+            <span class="rounded-full border border-white/30 bg-white/16 px-3.5 py-1.5 text-xs font-semibold text-white backdrop-blur-md">{{ $package['where'] }}</span>
+            <span class="rounded-full border border-white/30 bg-white/16 px-3.5 py-1.5 text-xs font-semibold text-white backdrop-blur-md">{{ $package['days'] }} days</span>
+            <span class="rounded-full border border-white/30 bg-white/16 px-3.5 py-1.5 text-xs font-semibold text-white backdrop-blur-md">{{ $package['pax'] }}</span>
         </div>
+        <h1 class="max-w-[24ch] text-[clamp(30px,4.4vw,62px)] leading-[1.02] tracking-[-.035em] text-white">{{ $package['title'] }}</h1>
     </div>
 </section>
 

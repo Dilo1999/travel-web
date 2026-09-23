@@ -10,14 +10,14 @@
     ];
 @endphp
 
-<header class="site-header sticky top-0 z-50 px-3 pt-3 sm:px-5">
-    <div class="relative mx-auto max-w-[1400px]">
-        <div
-            data-nav-bar
-            @if($isHome) data-transparent-hero @endif
-            class="flex flex-wrap items-center gap-1 rounded-full border py-2 pr-2 pl-4 transition-colors duration-300 {{ $isHome ? '' : 'glass text-ink' }}"
-        >
-            <a href="{{ route('home') }}" class="mr-auto flex items-center py-1">
+<header class="site-header sticky top-0 z-50">
+    <div
+        data-nav-bar
+        @if($isHome) data-transparent-hero @endif
+        class="relative transition-colors duration-300 {{ $isHome ? '' : 'header-bar text-ink' }}"
+    >
+        <div class="mx-auto flex h-20 max-w-[1400px] items-center gap-1 px-4 sm:px-6 lg:px-8">
+            <a href="{{ route('home') }}" class="mr-auto flex items-center">
                 <img data-nav-logo src="{{ asset('images/logo/nio-logo.png') }}" alt="{{ config('travel.brand.name') }}" class="h-16 w-auto transition-[filter] duration-300">
             </a>
 
@@ -30,7 +30,7 @@
                 @endforeach
             </nav>
 
-            <a href="{{ route('contact') }}" class="btn btn-primary ml-2 hidden px-4 py-2.5 text-[12.5px] sm:inline-flex">
+            <a href="{{ route('contact') }}" class="btn btn-primary ml-4 hidden px-4 py-2.5 text-[12.5px] sm:inline-flex">
                 Enquire
             </a>
 
@@ -43,7 +43,7 @@
 
         {{-- Scroll progress bar: fills as the page is scrolled, hidden at the very top --}}
         <div data-scroll-progress
-             class="pointer-events-none absolute inset-x-5 -bottom-[3px] h-[3px] origin-left scale-x-0 rounded-full bg-accent opacity-0 transition-[transform,opacity] duration-150 ease-out"></div>
+             class="pointer-events-none absolute inset-x-0 bottom-0 h-[3px] origin-left scale-x-0 bg-accent opacity-0 transition-[transform,opacity] duration-150 ease-out"></div>
     </div>
 </header>
 
