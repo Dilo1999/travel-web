@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title', config('travel.brand.name').' — '.config('travel.brand.tagline'))</title>
-    <meta name="description" content="@yield('description', 'Inbound tours across every province of Sri Lanka, plus outbound holidays worldwide — planned and run by the people who answer your messages.')">
+    <title>@yield('title', config('travel.brand.name').' — '.travel_t(config('travel.brand.tagline')))</title>
+    <meta name="description" content="@yield('description', __('site.home.hero_subtitle'))">
     <link rel="icon" href="{{ asset('favicon.ico') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>

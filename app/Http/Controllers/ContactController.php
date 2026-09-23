@@ -16,7 +16,7 @@ class ContactController extends Controller
             'dialCodes' => config('travel.dial_codes'),
             'contacts' => config('travel.contacts'),
             'prefillInterest' => $request->query('interest'),
-            'prefillMessage' => $request->query('package') ? 'Enquiring about: '.$request->query('package') : null,
+            'prefillMessage' => $request->query('package') ? __('site.contact.enquiring_about', ['package' => $request->query('package')]) : null,
         ]);
     }
 
@@ -30,7 +30,7 @@ class ContactController extends Controller
             'phone' => ['nullable', 'string', 'max:30', function ($attribute, $value, $fail) {
                 $digits = preg_replace('/\D/', '', (string) $value);
                 if ($digits !== '' && strlen($digits) < 9) {
-                    $fail('Include the country code, e.g. +91.');
+                    $fail(__('site.contact.validation.phone_country_code'));
                 }
             }],
             'pax' => ['required', 'integer', 'min:1'],
@@ -39,12 +39,12 @@ class ContactController extends Controller
             'interest' => ['required', 'string', 'max:100'],
             'message' => ['nullable', 'string', 'max:2000'],
         ], [
-            'name.required' => 'Tell us who to address the quote to.',
-            'pax.required' => 'How many are travelling?',
-            'pax.integer' => 'Enter a number of travellers.',
-            'pax.min' => 'Enter a number of travellers.',
-            'interest.required' => 'Pick what you are looking for.',
-            'email.email' => 'That email does not look right.',
+            'name.required' => __('site.contact.validation.name_required'),
+            'pax.required' => __('site.contact.validation.pax_required'),
+            'pax.integer' => __('site.contact.validation.pax_integer'),
+            'pax.min' => __('site.contact.validation.pax_min'),
+            'interest.required' => __('site.contact.validation.interest_required'),
+            'email.email' => __('site.contact.validation.email_email'),
         ]);
 
         if ($validator->fails()) {

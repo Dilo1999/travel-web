@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
-@section('title', 'Packages — '.config('travel.brand.name'))
-@section('description', 'Browse our inbound Sri Lanka tours and outbound holidays, filterable by theme, destination and duration.')
+@section('title', __('site.packages.meta_title').' — '.config('travel.brand.name'))
+@section('description', __('site.packages.meta_description'))
 
 @section('content')
 
 @include('partials.page-hero', [
-    'kicker' => $totalCount.' packages',
-    'title' => 'Handpicked tours for every kind of traveller',
-    'subtitle' => 'Inbound Sri Lanka circuits and outbound holidays, all run or arranged end to end by Nio. Filter by theme, destination and duration to find yours.',
+    'kicker' => __('site.packages.hero_kicker', ['count' => $totalCount]),
+    'title' => __('site.packages.hero_title'),
+    'subtitle' => __('site.packages.hero_subtitle'),
     'image' => 'niohero-packages',
 ])
 
@@ -17,29 +17,29 @@
 
         <div class="glass flex flex-wrap gap-7 rounded-[26px] p-5.5 sm:p-6">
             <div>
-                <div class="mb-2.5 text-[11.5px] font-semibold tracking-[0.1em] text-ink/45 uppercase">Theme</div>
+                <div class="mb-2.5 text-[11.5px] font-semibold tracking-[0.1em] text-ink/45 uppercase">{{ __('site.packages.filter_theme') }}</div>
                 <div class="flex flex-wrap gap-2">
                     @foreach (array_merge(['All'], $themes) as $theme)
                         <a href="{{ route('packages.index', ['theme' => $theme, 'kind' => $activeKind, 'duration' => $activeDuration]) }}"
-                           class="chip {{ $activeTheme === $theme ? 'chip-active' : 'chip-inactive' }}">{{ $theme }}</a>
+                           class="chip {{ $activeTheme === $theme ? 'chip-active' : 'chip-inactive' }}">{{ $theme === 'All' ? __('site.destinations.tab_all') : travel_label(config('travel.theme_labels'), $theme) }}</a>
                     @endforeach
                 </div>
             </div>
             <div>
-                <div class="mb-2.5 text-[11.5px] font-semibold tracking-[0.1em] text-ink/45 uppercase">Destination</div>
+                <div class="mb-2.5 text-[11.5px] font-semibold tracking-[0.1em] text-ink/45 uppercase">{{ __('site.packages.filter_destination') }}</div>
                 <div class="flex flex-wrap gap-2">
-                    @foreach (['Inbound' => 'Sri Lanka (inbound)', 'Outbound' => 'Outbound'] as $key => $label)
+                    @foreach (['Inbound' => __('site.packages.destination_inbound_label'), 'Outbound' => __('site.packages.destination_outbound_label')] as $key => $label)
                         <a href="{{ route('packages.index', ['theme' => $activeTheme, 'kind' => $key, 'duration' => $activeDuration]) }}"
                            class="chip {{ $activeKind === $key ? 'chip-active' : 'chip-inactive' }}">{{ $label }}</a>
                     @endforeach
                 </div>
             </div>
             <div>
-                <div class="mb-2.5 text-[11.5px] font-semibold tracking-[0.1em] text-ink/45 uppercase">Duration</div>
+                <div class="mb-2.5 text-[11.5px] font-semibold tracking-[0.1em] text-ink/45 uppercase">{{ __('site.packages.filter_duration') }}</div>
                 <div class="flex flex-wrap gap-2">
                     @foreach (['All', '3–4', '5–6', '7+'] as $dur)
                         <a href="{{ route('packages.index', ['theme' => $activeTheme, 'kind' => $activeKind, 'duration' => $dur]) }}"
-                           class="chip {{ $activeDuration === $dur ? 'chip-active' : 'chip-inactive' }}">{{ $dur }}</a>
+                           class="chip {{ $activeDuration === $dur ? 'chip-active' : 'chip-inactive' }}">{{ travel_label(config('travel.duration_labels'), $dur) }}</a>
                     @endforeach
                 </div>
             </div>
@@ -52,7 +52,7 @@
     <div class="mx-auto max-w-[1400px]">
         @if ($shown->isEmpty())
             <p class="py-10 text-[15px] text-ink/45">
-                Nothing matches that combination, <a href="{{ route('contact') }}" class="text-accent-700 underline">ask us to build it</a>.
+                {!! __('site.packages.empty_state', ['link' => '<a href="'.route('contact').'" class="text-accent-700 underline">'.__('site.packages.empty_state_link').'</a>']) !!}
             </p>
         @else
             <div class="grid grid-cols-1 gap-5.5 sm:grid-cols-2 lg:grid-cols-3">

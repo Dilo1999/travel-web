@@ -13,7 +13,8 @@ class HomeController extends Controller
             $hasInbound = $packages->where('theme', $theme)->where('kind', 'Inbound')->isNotEmpty();
 
             return [
-                'label' => $theme,
+                'key' => $theme,
+                'label' => travel_label(config('travel.theme_labels'), $theme),
                 'img' => travel_img($themeImages[$theme] ?? $theme, 900, 700),
                 'count' => $packages->where('theme', $theme)->count(),
                 'kind' => $hasInbound ? 'Inbound' : 'Outbound',

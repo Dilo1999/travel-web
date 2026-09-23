@@ -5,13 +5,14 @@
     $heroRoutes = ['home', 'destinations', 'packages.index', 'packages.show', 'gallery', 'about', 'contact'];
     $hasHero = collect($heroRoutes)->contains(fn ($route) => request()->routeIs($route));
     $navLinks = [
-        ['label' => 'Home', 'route' => 'home', 'active' => request()->routeIs('home')],
-        ['label' => 'Destinations', 'route' => 'destinations', 'active' => request()->routeIs('destinations')],
-        ['label' => 'Packages', 'route' => 'packages.index', 'active' => request()->routeIs('packages.*')],
-        ['label' => 'Gallery', 'route' => 'gallery', 'active' => request()->routeIs('gallery*')],
-        ['label' => 'About', 'route' => 'about', 'active' => request()->routeIs('about')],
-        ['label' => 'Contact', 'route' => 'contact', 'active' => request()->routeIs('contact')],
+        ['label' => __('site.nav.home'), 'route' => 'home', 'active' => request()->routeIs('home')],
+        ['label' => __('site.nav.destinations'), 'route' => 'destinations', 'active' => request()->routeIs('destinations')],
+        ['label' => __('site.nav.packages'), 'route' => 'packages.index', 'active' => request()->routeIs('packages.*')],
+        ['label' => __('site.nav.gallery'), 'route' => 'gallery', 'active' => request()->routeIs('gallery*')],
+        ['label' => __('site.nav.about'), 'route' => 'about', 'active' => request()->routeIs('about')],
+        ['label' => __('site.nav.contact'), 'route' => 'contact', 'active' => request()->routeIs('contact')],
     ];
+    $localeLabels = ['en' => 'EN', 'hi' => 'हिंदी', 'ta' => 'தமிழ்'];
 @endphp
 
 <header class="site-header sticky top-0 z-50">
@@ -34,11 +35,20 @@
                 @endforeach
             </nav>
 
+            <div class="ml-1 hidden items-center gap-0.5 rounded-full border border-white/25 bg-white/10 p-1 lg:flex">
+                @foreach (\Mcamara\LaravelLocalization\Facades\LaravelLocalization::getSupportedLocales() as $code => $properties)
+                    <a href="{{ \Mcamara\LaravelLocalization\Facades\LaravelLocalization::getLocalizedURL($code, null, [], true) }}"
+                       class="rounded-full px-3 py-1.5 text-[12px] font-semibold whitespace-nowrap transition {{ app()->getLocale() === $code ? 'bg-white text-ink' : 'text-white/85 hover:bg-white/15' }}">
+                        {{ $localeLabels[$code] ?? strtoupper($code) }}
+                    </a>
+                @endforeach
+            </div>
+
             <a href="{{ route('contact') }}" class="btn btn-primary ml-4 hidden px-4 py-2.5 text-[12.5px] sm:inline-flex">
-                Enquire
+                {{ __('site.nav.enquire') }}
             </a>
 
-            <button data-mobile-menu-toggle type="button" aria-expanded="false" aria-label="Open menu"
+            <button data-mobile-menu-toggle type="button" aria-expanded="false" aria-label="{{ __('site.nav.open_menu') }}"
                     class="ml-1 grid h-10 w-10 shrink-0 place-items-center rounded-full transition hover:bg-white/20 lg:hidden">
                 <svg data-mobile-menu-icon="open" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
                 <svg data-mobile-menu-icon="close" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="hidden"><path d="M6 6l12 12M18 6L6 18"/></svg>
@@ -63,8 +73,16 @@
                 </a>
             @endforeach
         </nav>
-        <a data-mobile-menu-close href="{{ route('contact') }}" class="btn btn-primary mt-6 justify-center py-4 text-sm">
-            Enquire now
+        <div class="mt-6 flex items-center gap-1 self-start rounded-full border border-divider bg-black/[.03] p-1">
+            @foreach (\Mcamara\LaravelLocalization\Facades\LaravelLocalization::getSupportedLocales() as $code => $properties)
+                <a href="{{ \Mcamara\LaravelLocalization\Facades\LaravelLocalization::getLocalizedURL($code, null, [], true) }}"
+                   class="rounded-full px-3.5 py-2 text-[13px] font-semibold whitespace-nowrap transition {{ app()->getLocale() === $code ? 'bg-accent text-white' : 'text-ink/70' }}">
+                    {{ $localeLabels[$code] ?? strtoupper($code) }}
+                </a>
+            @endforeach
+        </div>
+        <a data-mobile-menu-close href="{{ route('contact') }}" class="btn btn-primary mt-4 justify-center py-4 text-sm">
+            {{ __('site.nav.enquire_now') }}
         </a>
     </div>
 </div>

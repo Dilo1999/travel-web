@@ -1,21 +1,21 @@
 @extends('layouts.app')
 
-@section('title', 'Destinations — '.config('travel.brand.name'))
-@section('description', 'Every corner of Sri Lanka we run inbound tours in, plus the outbound holidays we book beyond it.')
+@section('title', __('site.destinations.meta_title').' — '.config('travel.brand.name'))
+@section('description', __('site.destinations.meta_description'))
 
 @section('content')
 
 @include('partials.page-hero', [
-    'kicker' => 'Inbound & outbound',
-    'title' => 'Every corner of Sri Lanka, and the holidays beyond it',
-    'subtitle' => 'Sri Lanka is our home ground, we run every inbound tour ourselves. For travel beyond the island we work with vetted ground partners and still handle the whole booking from Colombo.',
+    'kicker' => __('site.destinations.hero_kicker'),
+    'title' => __('site.destinations.hero_title'),
+    'subtitle' => __('site.destinations.hero_subtitle'),
     'image' => 'niohero-destinations',
 ])
 
 <section class="px-4 pt-8 sm:px-5">
     <div class="mx-auto max-w-[1400px]">
         <div class="flex flex-wrap gap-2">
-            @foreach (['All' => 'All destinations', 'Inbound' => 'Sri Lanka (inbound)', 'Outbound' => 'Outbound'] as $key => $label)
+            @foreach (['All' => __('site.destinations.tab_all'), 'Inbound' => __('site.destinations.tab_inbound'), 'Outbound' => __('site.destinations.tab_outbound')] as $key => $label)
                 <a href="{{ route('destinations', $key === 'All' ? [] : ['kind' => $key]) }}"
                    class="chip {{ $activeTab === $key ? 'chip-active' : 'chip-inactive' }}">{{ $label }}</a>
             @endforeach
