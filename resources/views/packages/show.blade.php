@@ -87,7 +87,7 @@
 </section>
 
 {{-- Sticky bottom CTA bar --}}
-<div class="sticky bottom-4 z-40 px-4 sm:px-5">
+<div class="sticky bottom-24 z-40 px-4 sm:px-5 lg:bottom-4">
     <div class="mx-auto flex max-w-[1400px] flex-wrap items-center gap-4.5 rounded-full border border-white/16 bg-[rgba(14,32,20,.72)] py-3 pr-5 pl-6.5 backdrop-blur-xl">
         <div class="mr-auto">
             <div class="text-[15px] font-semibold text-white" style="font-family:var(--font-heading)">{{ travel_t($package['title']) }}</div>

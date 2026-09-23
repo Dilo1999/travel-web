@@ -1,5 +1,5 @@
 <footer class="relative z-10 bg-[rgba(14,32,20,.94)] text-white">
-    <div class="mx-auto max-w-[1400px] px-4 pt-10 pb-6 sm:px-6 sm:pt-12 lg:px-8">
+    <div class="mx-auto max-w-[1400px] px-4 pt-10 pb-28 sm:px-6 sm:pt-12 lg:pb-6 lg:px-8">
         <div class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
             <div>
                 <img src="{{ asset('images/logo/nio-logo.png') }}" alt="{{ config('travel.brand.name') }}" class="mb-4 h-12 w-auto brightness-0 invert">

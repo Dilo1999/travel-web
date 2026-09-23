@@ -13,6 +13,8 @@
         ['label' => __('site.nav.contact'), 'route' => 'contact', 'active' => request()->routeIs('contact')],
     ];
     $localeLabels = ['en' => 'EN', 'hi' => 'हिंदी', 'ta' => 'தமிழ்'];
+    $localeShort = ['en' => 'EN', 'hi' => 'हिं', 'ta' => 'த'];
+    $bottomNavLinks = collect($navLinks)->whereIn('route', ['home', 'packages.index', 'gallery', 'contact'])->values();
 @endphp
 
 <header class="site-header sticky top-0 z-50">
@@ -48,6 +50,16 @@
             <a href="{{ route('contact') }}" class="btn btn-primary ml-4 hidden px-4 py-2.5 text-[12.5px] sm:inline-flex">
                 {{ __('site.nav.enquire') }}
             </a>
+
+            <div class="ml-2 flex items-center gap-1 text-[12.5px] font-semibold lg:hidden">
+                @foreach (\Mcamara\LaravelLocalization\Facades\LaravelLocalization::getSupportedLocales() as $code => $properties)
+                    @if (!$loop->first)<span class="opacity-40">&middot;</span>@endif
+                    <a href="{{ \Mcamara\LaravelLocalization\Facades\LaravelLocalization::getLocalizedURL($code, null, [], true) }}"
+                       class="{{ app()->getLocale() === $code ? '' : 'opacity-60 hover:opacity-100' }}">
+                        {{ $localeShort[$code] ?? strtoupper($code) }}
+                    </a>
+                @endforeach
+            </div>
 
             <button data-mobile-menu-toggle type="button" aria-expanded="false" aria-label="{{ __('site.nav.open_menu') }}"
                     class="ml-1 grid h-10 w-10 shrink-0 place-items-center rounded-full transition hover:bg-white/20 lg:hidden">
@@ -87,3 +99,15 @@
         </a>
     </div>
 </div>
+
+{{-- Floating bottom nav (mobile only) --}}
+<nav class="fixed inset-x-4 bottom-4 z-30 lg:hidden">
+    <div class="mx-auto flex max-w-[420px] items-center rounded-full border border-white/16 bg-[rgba(14,32,20,.86)] p-1.5 backdrop-blur-xl shadow-[0_18px_40px_-14px_rgba(8,20,12,.65)]">
+        @foreach ($bottomNavLinks as $link)
+            <a href="{{ route($link['route']) }}"
+               class="min-w-0 flex-1 rounded-full px-2 py-2.5 text-center text-[11.5px] leading-tight font-semibold transition {{ $link['active'] ? 'text-accent-400' : 'text-white/72 hover:text-white' }}">
+                {{ $link['label'] }}
+            </a>
+        @endforeach
+    </div>
+</nav>

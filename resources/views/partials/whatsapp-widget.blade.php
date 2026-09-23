@@ -1,4 +1,4 @@
-<div class="fixed right-4 bottom-4 z-[70] flex flex-col items-end gap-3 sm:right-6 sm:bottom-6">
+<div class="fixed right-4 bottom-24 z-[70] flex flex-col items-end gap-3 sm:right-6 lg:bottom-6">
 
     <div data-wa-panel class="hidden w-[min(340px,calc(100vw-32px))] animate-pop-in glass-strong rounded-[26px] p-5">
         <div class="mb-4 flex items-start gap-3">
