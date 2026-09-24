@@ -59,8 +59,10 @@ if (! function_exists('whatsapp_link')) {
 
 if (! function_exists('travel_t')) {
     /**
-     * Resolve a locale-keyed content field (['en' => ..., 'hi' => ..., 'ta' => ...])
-     * to the current app locale, falling back to the fallback locale then English.
+     * Resolve a locale-keyed content field (['en' => ...]) to the current app locale.
+     * An inline value for the locale wins; otherwise the English text is looked up in
+     * the translations table (filled by the Translator page in the admin panel),
+     * falling back to the fallback locale then the first value.
      */
     function travel_t(mixed $field): mixed
     {
@@ -68,9 +70,32 @@ if (! function_exists('travel_t')) {
             return $field;
         }
 
-        return $field[app()->getLocale()]
-            ?? $field[config('app.fallback_locale')]
-            ?? reset($field);
+        $locale = app()->getLocale();
+
+        if (isset($field[$locale])) {
+            return $field[$locale];
+        }
+
+        if (is_string($field['en'] ?? null) && ($translated = travel_translation($field['en'], $locale)) !== null) {
+            return $translated;
+        }
+
+        return $field[config('app.fallback_locale')] ?? reset($field);
+    }
+}
+
+if (! function_exists('travel_translation')) {
+    /**
+     * Look up the generated translation of an English content string
+     * in the translations table, or null if there is none.
+     */
+    function travel_translation(string $english, string $locale): ?string
+    {
+        static $loaded = [];
+
+        $loaded[$locale] ??= app('translator')->getLoader()->load($locale, '*', '*');
+
+        return $loaded[$locale][$english] ?? null;
     }
 }
 

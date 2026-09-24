@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Translation\DatabaseLoader;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
@@ -12,7 +13,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        // Serve translations from the translations table (filled by the admin Translator page) over the lang files.
+        $this->app->extend('translation.loader', fn ($loader) => new DatabaseLoader($loader));
     }
 
     /**
