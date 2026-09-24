@@ -23,9 +23,9 @@
         @if($hasHero) data-transparent-hero @endif
         class="relative transition-colors duration-300 {{ $hasHero ? '' : 'header-bar text-ink' }}"
     >
-        <div class="mx-auto flex h-20 max-w-[1400px] items-center gap-1 px-4 sm:px-6 lg:px-8">
+        <div class="mx-auto flex h-16 max-w-[1400px] items-center gap-1 px-4 sm:h-20 sm:px-6 lg:px-8">
             <a href="{{ route('home') }}" class="mr-auto flex items-center">
-                <img data-nav-logo src="{{ asset('images/logo/nio-logo.png') }}" alt="{{ config('travel.brand.name') }}" class="h-16 w-auto transition-[filter] duration-300">
+                <img data-nav-logo src="{{ asset('images/logo/nio-logo.png') }}" alt="{{ config('travel.brand.name') }}" class="h-11 w-auto transition-[filter] duration-300 sm:h-16">
             </a>
 
             <nav class="hidden items-center gap-0.5 lg:flex">
@@ -77,12 +77,13 @@
 {{-- Mobile nav overlay --}}
 <div data-mobile-menu-overlay
      class="fixed inset-0 z-40 translate-x-full overflow-y-auto bg-canvas opacity-0 pointer-events-none transition-all duration-300 lg:hidden">
-    <div class="flex min-h-screen flex-col px-6 pt-24 pb-10">
-        <nav class="flex flex-col gap-1">
+    <div class="flex min-h-screen flex-col px-5 pt-20 pb-10 sm:px-6 sm:pt-24">
+        <nav class="flex flex-col gap-1.5">
             @foreach ($navLinks as $link)
                 <a data-mobile-menu-close href="{{ route($link['route']) }}"
-                   class="rounded-2xl px-4 py-4 text-lg font-semibold {{ $link['active'] ? 'bg-accent-100 text-accent-800' : 'hover:bg-black/5' }}">
+                   class="flex items-center justify-between rounded-2xl px-4 py-4 text-lg font-semibold {{ $link['active'] ? 'bg-accent-100 text-accent-800' : 'active:bg-black/5 hover:bg-black/5' }}">
                     {{ $link['label'] }}
+                    <svg class="opacity-40 sm:hidden" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
                 </a>
             @endforeach
         </nav>
@@ -100,13 +101,24 @@
     </div>
 </div>
 
-{{-- Floating bottom nav (mobile only) --}}
-<nav class="fixed inset-x-4 bottom-4 z-30 lg:hidden">
-    <div class="mx-auto flex max-w-[420px] items-center rounded-full border border-white/16 bg-[rgba(14,32,20,.86)] p-1.5 backdrop-blur-xl shadow-[0_18px_40px_-14px_rgba(8,20,12,.65)]">
+{{-- Bottom tab bar (mobile only): icon + label, docked with safe-area padding --}}
+@php
+    $tabIcons = [
+        'home' => 'M3 11.5 12 4l9 7.5M5.5 10v9.5h4.5v-5h4v5h4.5V10',
+        'packages.index' => 'M4 7.5 12 4l8 3.5v9L12 20l-8-3.5v-9ZM4 7.5l8 3.5m0 0 8-3.5M12 11v9',
+        'gallery' => 'M4 5h16v14H4V5Zm0 11 4.5-4.5 3.5 3.5 3-3 5 5M15.5 9.5h.01',
+        'contact' => 'M4 6h16v12H4V6Zm0 1 8 6.5L20 7',
+    ];
+@endphp
+<nav class="fixed inset-x-3 bottom-3 z-30 lg:hidden" style="bottom:max(12px,env(safe-area-inset-bottom))">
+    <div class="mx-auto flex max-w-[420px] items-stretch rounded-[22px] border border-black/5 bg-white/92 p-1.5 backdrop-blur-xl shadow-[0_14px_34px_-12px_rgba(14,40,22,.38)]">
         @foreach ($bottomNavLinks as $link)
-            <a href="{{ route($link['route']) }}"
-               class="min-w-0 flex-1 rounded-full px-2 py-2.5 text-center text-[11.5px] leading-tight font-semibold transition {{ $link['active'] ? 'text-accent-400' : 'text-white/72 hover:text-white' }}">
-                {{ $link['label'] }}
+            <a href="{{ route($link['route']) }}" @if($link['active']) aria-current="page" @endif
+               class="flex min-w-0 flex-1 flex-col items-center gap-0.5 rounded-2xl px-2 py-1.5 text-[11px] leading-tight font-semibold transition {{ $link['active'] ? 'text-accent-700' : 'text-ink/55 active:text-ink' }}">
+                <span class="grid h-7 w-12 place-items-center rounded-full transition {{ $link['active'] ? 'bg-accent-100' : '' }}">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="{{ $tabIcons[$link['route']] ?? $tabIcons['home'] }}"/></svg>
+                </span>
+                <span class="truncate">{{ $link['label'] }}</span>
             </a>
         @endforeach
     </div>

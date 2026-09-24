@@ -16,28 +16,28 @@
 <section class="px-4 pt-8 sm:px-5">
     <div class="mx-auto max-w-[1400px]">
 
-        <div class="glass flex flex-wrap gap-7 rounded-[26px] p-5.5 sm:p-6">
-            <div>
+        <div class="glass flex flex-wrap gap-7 rounded-[22px] p-4 max-sm:gap-5 sm:rounded-[26px] sm:p-6">
+            <div class="max-sm:w-full">
                 <div class="mb-2.5 text-[11.5px] font-semibold tracking-[0.1em] text-ink/45 uppercase">{{ __('site.packages.filter_theme') }}</div>
-                <div class="flex flex-wrap gap-2">
+                <div class="filter-row flex flex-wrap gap-2 max-sm:-mx-4 max-sm:flex-nowrap max-sm:overflow-x-auto max-sm:px-4 max-sm:pb-1">
                     @foreach (array_merge(['All'], $themes) as $theme)
                         <a href="{{ route('packages.index', ['theme' => $theme, 'kind' => $activeKind, 'duration' => $activeDuration]) }}"
                            class="chip {{ $activeTheme === $theme ? 'chip-active' : 'chip-inactive' }}">{{ $theme === 'All' ? __('site.destinations.tab_all') : travel_label(config('travel.theme_labels'), $theme) }}</a>
                     @endforeach
                 </div>
             </div>
-            <div>
+            <div class="max-sm:w-full">
                 <div class="mb-2.5 text-[11.5px] font-semibold tracking-[0.1em] text-ink/45 uppercase">{{ __('site.packages.filter_destination') }}</div>
-                <div class="flex flex-wrap gap-2">
+                <div class="filter-row flex flex-wrap gap-2 max-sm:-mx-4 max-sm:flex-nowrap max-sm:overflow-x-auto max-sm:px-4 max-sm:pb-1">
                     @foreach (['Inbound' => __('site.packages.destination_inbound_label'), 'Outbound' => __('site.packages.destination_outbound_label')] as $key => $label)
                         <a href="{{ route('packages.index', ['theme' => $activeTheme, 'kind' => $key, 'duration' => $activeDuration]) }}"
                            class="chip {{ $activeKind === $key ? 'chip-active' : 'chip-inactive' }}">{{ $label }}</a>
                     @endforeach
                 </div>
             </div>
-            <div>
+            <div class="max-sm:w-full">
                 <div class="mb-2.5 text-[11.5px] font-semibold tracking-[0.1em] text-ink/45 uppercase">{{ __('site.packages.filter_duration') }}</div>
-                <div class="flex flex-wrap gap-2">
+                <div class="filter-row flex flex-wrap gap-2 max-sm:-mx-4 max-sm:flex-nowrap max-sm:overflow-x-auto max-sm:px-4 max-sm:pb-1">
                     @foreach (['All', '3–4', '5–6', '7+'] as $dur)
                         <a href="{{ route('packages.index', ['theme' => $activeTheme, 'kind' => $activeKind, 'duration' => $dur]) }}"
                            class="chip {{ $activeDuration === $dur ? 'chip-active' : 'chip-inactive' }}">{{ travel_label(config('travel.duration_labels'), $dur) }}</a>

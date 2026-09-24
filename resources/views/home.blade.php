@@ -5,12 +5,12 @@
 @section('content')
 
 {{-- Hero --}}
-<section class="relative -mt-20 flex h-[78vh] min-h-[440px] items-end overflow-hidden sm:h-screen sm:min-h-[560px]">
+<section class="relative -mt-16 flex h-[82svh] min-h-[460px] items-end overflow-hidden sm:-mt-20 sm:h-screen sm:min-h-[560px]">
     <div class="animate-hero-video absolute inset-0 bg-[#0c1a10] bg-cover bg-center" style="background-image:url('{{ travel_img('niohero3', 1920, 1080, 'Sri Lanka,coast') }}')"></div>
     <div class="absolute inset-0" style="background:linear-gradient(180deg,rgba(8,22,12,.50) 0%,rgba(8,22,12,.10) 34%,rgba(8,22,12,.80) 100%)"></div>
 
-    <div class="relative mx-auto w-full max-w-[1440px] px-6 pt-16 pb-14 sm:px-10 sm:pb-20">
-        <div class="animate-hero mb-6 inline-flex items-center gap-2.5 rounded-full border border-white/30 bg-white/16 px-4 py-2 backdrop-blur-md">
+    <div class="relative mx-auto w-full max-w-[1440px] px-5 pt-16 pb-28 sm:px-10 sm:pb-20">
+        <div class="animate-hero mb-5 inline-flex items-center gap-2.5 rounded-full border border-white/30 bg-white/16 px-3.5 py-1.5 backdrop-blur-md sm:mb-6 sm:px-4 sm:py-2">
             <span class="h-[7px] w-[7px] rounded-full bg-[#7ee08f] shadow-[0_0_12px_#7ee08f]"></span>
             <span class="text-xs font-semibold tracking-[0.06em] text-white uppercase">{{ __('site.home.hero_badge') }}</span>
         </div>
@@ -20,7 +20,7 @@
         <p class="animate-hero mb-7 max-w-[58ch] text-[clamp(15px,1.3vw,19px)] leading-relaxed text-white/88">
             {{ __('site.home.hero_subtitle') }}
         </p>
-        <div class="animate-hero flex flex-wrap gap-3">
+        <div class="animate-hero flex flex-wrap gap-3 max-sm:flex-col">
             <a href="{{ route('packages.index') }}" class="btn btn-primary px-6.5 py-4 text-sm">{{ __('site.home.browse_packages') }}</a>
             <a href="{{ route('destinations') }}" class="btn btn-dark px-6.5 py-4 text-sm">{{ __('site.home.see_destinations') }}</a>
         </div>
@@ -43,7 +43,7 @@
         <div data-rail-track class="rail">
             @foreach ($themeCards as $card)
                 <a href="{{ route('packages.index', ['theme' => $card['key'], 'kind' => $card['kind']]) }}"
-                   class="group relative h-[250px] w-[clamp(220px,22vw,270px)] shrink-0 snap-start overflow-hidden rounded-[24px] bg-cover bg-center transition-transform duration-300 hover:-translate-y-1.5"
+                   class="group relative h-[220px] w-[clamp(220px,22vw,270px)] shrink-0 snap-start overflow-hidden rounded-[20px] bg-cover bg-center transition-transform duration-300 hover:-translate-y-1.5 sm:h-[250px] sm:rounded-[24px]"
                    style="background-image:url('{{ $card['img'] }}')">
                     <span class="absolute inset-0" style="background:linear-gradient(180deg,rgba(8,22,12,.05),rgba(8,22,12,.78))"></span>
                     <span class="absolute inset-x-4.5 bottom-4 block">
@@ -84,15 +84,15 @@
             </div>
             <a href="{{ route('destinations') }}" class="btn btn-secondary px-5 py-3 text-[13px]">{{ __('site.home.see_destinations') }}</a>
         </div>
-        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
+        <div class="grid grid-cols-2 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-5">
             @foreach ($destinations as $destination)
                 <a href="{{ route('destinations', ['kind' => $destination['kind']]) }}"
-                   class="group relative h-[250px] overflow-hidden rounded-[24px] bg-cover bg-center shadow-glass transition-transform duration-300 hover:-translate-y-1.5"
+                   class="group relative h-[190px] overflow-hidden rounded-[20px] bg-cover bg-center shadow-glass transition-transform duration-300 hover:-translate-y-1.5 sm:h-[250px] sm:rounded-[24px] {{ $loop->last && $loop->count % 2 === 1 ? 'max-sm:col-span-2' : '' }}"
                    style="background-image:url('{{ travel_img($destination['img'], 1000, 700, travel_place($destination['name']).','.$destination['country']) }}')">
                     <span class="absolute inset-0" style="background:linear-gradient(180deg,rgba(8,22,12,.06),rgba(8,22,12,.74))"></span>
-                    <span class="absolute inset-x-4.5 bottom-4 block text-left">
-                        <span class="block text-[11px] font-semibold tracking-[0.1em] text-white/70 uppercase">{{ travel_label(config('travel.kind_labels'), $destination['kind']) }}</span>
-                        <span class="mt-1.5 block text-xl font-semibold tracking-[-.015em] text-white" style="font-family:var(--font-heading)">{{ travel_t($destination['name']) }}</span>
+                    <span class="absolute inset-x-3.5 bottom-3.5 block text-left sm:inset-x-4.5 sm:bottom-4">
+                        <span class="block text-[10px] font-semibold tracking-[0.1em] text-white/70 uppercase sm:text-[11px]">{{ travel_label(config('travel.kind_labels'), $destination['kind']) }}</span>
+                        <span class="mt-1 block text-base font-semibold tracking-[-.015em] text-white sm:mt-1.5 sm:text-xl" style="font-family:var(--font-heading)">{{ travel_t($destination['name']) }}</span>
                     </span>
                 </a>
             @endforeach
@@ -109,17 +109,19 @@
         </div>
         <div class="mb-5.5 grid grid-cols-1 gap-4.5 sm:grid-cols-2 lg:grid-cols-4">
             @foreach ($pillars as $pillar)
-                <div class="glass rounded-3xl p-6.5 transition-transform duration-300 hover:-translate-y-1.5">
-                    <div class="mb-4.5 grid h-11 w-11 place-items-center rounded-2xl bg-accent-100">
+                <div class="glass rounded-3xl p-6.5 transition-transform duration-300 hover:-translate-y-1.5 max-sm:flex max-sm:items-start max-sm:gap-4 max-sm:p-5">
+                    <div class="mb-4.5 grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-accent-100 max-sm:mb-0">
                         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-700)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="{{ $pillar['icon'] }}"/></svg>
                     </div>
-                    <h4 class="mb-2 text-lg tracking-[-.015em]">{{ travel_t($pillar['title']) }}</h4>
-                    <p class="text-[13.5px] leading-relaxed text-ink/60">{{ travel_t($pillar['body']) }}</p>
+                    <div>
+                        <h4 class="mb-2 text-lg tracking-[-.015em] max-sm:mb-1 max-sm:text-[17px]">{{ travel_t($pillar['title']) }}</h4>
+                        <p class="text-[13.5px] leading-relaxed text-ink/60">{{ travel_t($pillar['body']) }}</p>
+                    </div>
                 </div>
             @endforeach
         </div>
 
-        <div data-rail class="glass-strong flex flex-col gap-5.5 rounded-[30px] p-6 sm:p-9">
+        <div data-rail class="glass-strong flex flex-col gap-5.5 rounded-[24px] p-5 sm:rounded-[30px] sm:p-9">
             <div class="flex flex-wrap items-center gap-4">
                 <span class="mr-auto text-[11.5px] font-semibold tracking-[0.14em] text-accent-700 uppercase">{{ __('site.home.testimonials_kicker') }}</span>
                 <div class="flex gap-2">
@@ -162,7 +164,7 @@
         <div data-rail-track class="rail">
             @foreach ($albums as $album)
                 <a href="{{ route('gallery.album', $album['slug']) }}"
-                   class="group relative h-[290px] w-[clamp(260px,26vw,330px)] shrink-0 snap-start overflow-hidden rounded-[26px] bg-cover bg-center transition-transform duration-300 hover:-translate-y-1.5"
+                   class="group relative h-[250px] w-[clamp(260px,26vw,330px)] shrink-0 snap-start overflow-hidden rounded-[20px] bg-cover bg-center transition-transform duration-300 hover:-translate-y-1.5 sm:h-[290px] sm:rounded-[26px]"
                    style="background-image:url('{{ travel_img($album['seed'].'-0', 1000, 700, $album['where']) }}')">
                     <span class="absolute inset-0" style="background:linear-gradient(180deg,rgba(8,22,12,.05),rgba(8,22,12,.76))"></span>
                     <span class="absolute inset-x-4.5 bottom-4 block text-left">

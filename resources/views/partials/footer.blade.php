@@ -1,7 +1,7 @@
 <footer class="relative z-10 bg-[rgba(14,32,20,.94)] text-white">
-    <div class="mx-auto max-w-[1400px] px-4 pt-10 pb-28 sm:px-6 sm:pt-12 lg:pb-6 lg:px-8">
-        <div class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
-            <div>
+    <div class="mx-auto max-w-[1400px] px-4 pt-12 pb-32 sm:px-6 sm:pt-12 lg:pb-6 lg:px-8">
+        <div class="grid grid-cols-2 gap-x-6 gap-y-9 sm:grid-cols-2 sm:gap-10 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
+            <div class="col-span-2 sm:col-span-1">
                 <img src="{{ asset('images/logo/nio-logo.png') }}" alt="{{ config('travel.brand.name') }}" class="mb-4 h-12 w-auto brightness-0 invert">
                 <p class="max-w-[36ch] text-[13.5px] leading-relaxed text-white/66">
                     {{ __('site.footer.tagline', ['legal' => config('travel.brand.legal_name')]) }}
@@ -27,7 +27,7 @@
                 </div>
             </div>
 
-            <div>
+            <div class="col-span-2 sm:col-span-1">
                 <div class="mb-4 text-[11.5px] font-semibold tracking-[0.12em] text-accent-400 uppercase">{{ __('site.footer.desks_heading') }}</div>
                 <div class="flex flex-col gap-2 text-[13.5px] text-white/66">
                     @foreach (config('travel.contacts') as $contact)

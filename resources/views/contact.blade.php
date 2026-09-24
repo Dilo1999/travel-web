@@ -16,7 +16,7 @@
 <section class="px-4 pt-8 pb-16 sm:px-5">
     <div class="mx-auto grid max-w-[1400px] grid-cols-1 items-start gap-6 lg:grid-cols-[1.3fr_1fr]">
 
-        <div class="glass-strong rounded-[30px] p-6 sm:p-10">
+        <div class="glass-strong rounded-[24px] p-5 sm:rounded-[30px] sm:p-10">
             @if (session('sent'))
                 <div>
                     <div class="mb-5 grid h-[58px] w-[58px] place-items-center rounded-[20px] bg-accent text-2xl text-white shadow-[0_16px_34px_-14px_rgba(47,158,65,.8)]">✓</div>
@@ -107,7 +107,7 @@
                         <textarea class="field-input min-h-[104px]" name="message" placeholder="{{ __('site.contact.placeholder_message') }}">{{ old('message', $prefillMessage) }}</textarea>
                     </div>
 
-                    <div class="mt-6.5 flex flex-wrap items-center gap-4">
+                    <div class="mt-6.5 flex flex-wrap items-center gap-4 max-sm:flex-col max-sm:items-stretch max-sm:gap-3">
                         <button type="submit" class="btn btn-primary px-7 py-4.5 text-sm">{{ __('site.contact.send_enquiry') }}</button>
                         <button type="button" data-wa-open class="btn btn-secondary px-6.5 py-4.5 text-sm">{{ __('site.common.whatsapp_us') }}</button>
                     </div>
@@ -124,13 +124,13 @@
                 <div class="mb-4 text-[11.5px] font-semibold tracking-[0.12em] text-accent-700 uppercase">{{ __('site.contact.desks_heading') }}</div>
                 <div class="flex flex-col gap-3">
                     @foreach ($contacts as $contact)
-                        <div class="flex items-center gap-3.5 rounded-2xl bg-white/60 px-4 py-3.5">
+                        <div class="flex items-center gap-3.5 rounded-2xl bg-white/60 px-4 py-3.5 max-sm:flex-wrap">
                             <span class="grid h-9.5 w-9.5 shrink-0 place-items-center rounded-xl bg-accent-100 text-xs font-semibold text-accent-800" style="font-family:var(--font-heading)">{{ $contact['cc'] }}</span>
                             <span class="flex-1">
                                 <span class="block text-sm font-bold">{{ $contact['name'] }}</span>
                                 <span class="block text-[12.5px] text-ink/45">{{ travel_t($contact['role']) }} · {{ travel_t($contact['country']) }}</span>
                             </span>
-                            <span class="text-[13px] font-semibold whitespace-nowrap">{{ $contact['number'] }}</span>
+                            <span class="text-[13px] font-semibold whitespace-nowrap max-sm:w-full max-sm:pl-[52px]">{{ $contact['number'] }}</span>
                         </div>
                     @endforeach
                 </div>
