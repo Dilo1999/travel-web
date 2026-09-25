@@ -19,20 +19,18 @@
                 <p class="text-sm text-gray-500">
                     The website's English text is translated with Claude and saved in the database. Visitors are served
                     those saved translations, so the API is only used when you click "Translate website".
+                    Packages are translated separately, with the "Translate with Claude" button on each package.
                 </p>
 
                 <div class="mt-4 space-y-2">
-                    @foreach ($status as $locale => $language)
+                    @foreach ($status as $language)
                         <div class="flex items-center justify-between text-sm">
                             <span class="font-medium">{{ $language['name'] }}</span>
-                            <span class="text-right text-gray-500">
+                            <span class="text-gray-500">
                                 {{ $language['translated'] }} of {{ $language['total'] }} strings translated
                                 @if ($language['updated'])
                                     · last updated {{ $language['updated']->diffForHumans() }}
                                 @endif
-                                @isset($packageStatus[$locale])
-                                    <br>Packages: {{ $packageStatus[$locale]['current'] }} of {{ $packageStatus[$locale]['total'] }} texts up to date
-                                @endisset
                             </span>
                         </div>
                     @endforeach

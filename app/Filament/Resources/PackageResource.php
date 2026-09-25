@@ -227,10 +227,6 @@ class PackageResource extends Resource
                         ->orWhere('slug', 'like', "%{$search}%")),
                 TextColumn::make('theme')->sortable(),
                 TextColumn::make('kind')->label('Destination')->sortable(),
-                TextColumn::make('translations')
-                    ->label('Translations')
-                    ->getStateUsing(fn (Package $record) => static::translationBadges($record))
-                    ->html(),
                 IconColumn::make('is_featured')->label('Featured')->boolean(),
                 IconColumn::make('is_published')->label('Published')->boolean(),
             ])
@@ -355,27 +351,6 @@ class PackageResource extends Resource
         }
 
         return $label;
-    }
-
-    private static function translationBadges(Package $record): string
-    {
-        $badges = [];
-
-        foreach (static::locales() as $locale => $properties) {
-            if ($locale === Package::SOURCE_LOCALE) {
-                continue;
-            }
-
-            $summary = $record->translationSummary($locale);
-            $pending = $summary['missing'] + $summary['outdated'];
-            [$color, $text] = $pending === 0
-                ? ['#15803d', '✓']
-                : ['#b45309', $pending.' to do'];
-
-            $badges[] = '<span style="white-space:nowrap;color:'.$color.'">'.e($properties['native']).' '.e($text).'</span>';
-        }
-
-        return implode('<br>', $badges);
     }
 
     /**

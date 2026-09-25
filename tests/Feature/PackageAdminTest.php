@@ -7,6 +7,7 @@ use App\Filament\Resources\PackageResource\Pages\EditPackage;
 use App\Models\Package;
 use App\Models\User;
 use App\Services\ClaudeTranslator;
+use App\Services\SiteTranslations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Mcamara\LaravelLocalization\LaravelLocalization;
@@ -201,6 +202,14 @@ class PackageAdminTest extends TestCase
             ->call('translate', ['ta'], true);
 
         $this->assertSame('[Tamil (தமிழ்)] Yala & Udawalawe Safari', $yala->fresh()->title['ta']);
+    }
+
+    public function test_website_translator_run_does_not_include_package_text(): void
+    {
+        $sources = array_column(app(SiteTranslations::class)->strings(), 'source');
+
+        $this->assertNotContains('Yala & Udawalawe Safari', $sources);
+        $this->assertNotContains('The main experience', $sources);
     }
 
     public function test_create_package_in_english(): void
