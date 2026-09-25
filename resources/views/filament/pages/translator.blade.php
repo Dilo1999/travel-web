@@ -22,14 +22,17 @@
                 </p>
 
                 <div class="mt-4 space-y-2">
-                    @foreach ($status as $language)
+                    @foreach ($status as $locale => $language)
                         <div class="flex items-center justify-between text-sm">
                             <span class="font-medium">{{ $language['name'] }}</span>
-                            <span class="text-gray-500">
+                            <span class="text-right text-gray-500">
                                 {{ $language['translated'] }} of {{ $language['total'] }} strings translated
                                 @if ($language['updated'])
                                     · last updated {{ $language['updated']->diffForHumans() }}
                                 @endif
+                                @isset($packageStatus[$locale])
+                                    <br>Packages: {{ $packageStatus[$locale]['current'] }} of {{ $packageStatus[$locale]['total'] }} texts up to date
+                                @endisset
                             </span>
                         </div>
                     @endforeach

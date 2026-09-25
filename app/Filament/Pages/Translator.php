@@ -2,21 +2,20 @@
 
 namespace App\Filament\Pages;
 
-use Anthropic\Core\Exceptions\APIConnectionException;
 use Anthropic\Core\Exceptions\APIException;
-use Anthropic\Core\Exceptions\AuthenticationException;
-use Anthropic\Core\Exceptions\RateLimitException;
+use App\Services\ClaudeTranslator;
+use App\Services\PackageTranslations;
 use App\Services\SiteTranslations;
 use Filament\Notifications\Notification;
 use Filament\Pages\Actions\Action;
 use Filament\Pages\Page;
 use Illuminate\Support\Carbon;
 use RuntimeException;
-use Throwable;
 
 /**
  * One button that translates all of the site's English into every other locale with Claude
- * and saves it to the translations table. The browser drives the run one batch (one API
+ * and saves it to the translations table, then fills in package text that is missing or
+ * outdated (packages keep their translations on the package itself; see PackageTranslations). The browser drives the run one batch (one API
  * request) at a time, so no single request runs long enough to hit a server timeout.
  */
 class Translator extends Page
@@ -35,6 +34,12 @@ class Translator extends Page
 
     /** @var list<string> strings that failed in this run and are not retried until the next one */
     public array $skipped = [];
+
+    /** @var list<string> "package id|locale" pairs that failed in this run */
+    public array $skippedPackages = [];
+
+    /** Package texts that needed translating when the run started. */
+    public int $packagesAtStart = 0;
 
     public int $total = 0;
 
@@ -61,7 +66,7 @@ class Translator extends Page
                 ->modalHeading('Translate the website')
                 ->modalSubheading(fn () => 'All '.count(app(SiteTranslations::class)->strings()).' strings of English text will be translated into '
                     .implode(' and ', app(SiteTranslations::class)->targetLocales())
-                    .' with the Claude API and saved, replacing the current translations. This uses API credit and takes a few minutes. Keep this page open until it finishes.')
+                    .' with the Claude API and saved, replacing the current translations. Package text is then translated where it is missing or its English has changed; package translations edited by hand are kept. This uses API credit and takes a few minutes. Keep this page open until it finishes.')
                 ->modalButton('Translate')
                 ->action(fn () => $this->start()),
         ];
@@ -69,7 +74,10 @@ class Translator extends Page
 
     protected function getViewData(): array
     {
-        return ['status' => $this->running ? [] : app(SiteTranslations::class)->status()];
+        return [
+            'status' => $this->running ? [] : app(SiteTranslations::class)->status(),
+            'packageStatus' => $this->running ? [] : app(PackageTranslations::class)->status(),
+        ];
     }
 
     public function start(): void
@@ -78,6 +86,8 @@ class Translator extends Page
 
         $this->startedAt = now()->startOfSecond()->toDateTimeString();
         $this->skipped = [];
+        $this->skippedPackages = [];
+        $this->packagesAtStart = app(PackageTranslations::class)->pendingCount();
         $this->running = true;
         $this->updateProgress();
 
@@ -107,20 +117,60 @@ class Translator extends Page
             Notification::make()
                 ->danger()
                 ->title('Translation stopped')
-                ->body($this->describeError($e).' Everything translated before this was saved.')
+                ->body(ClaudeTranslator::describeError($e).' Everything translated before this was saved.')
                 ->persistent()
                 ->send();
 
             return false;
         }
 
-        if ($saved === null) {
-            $this->finish($translations);
+        if ($saved === null && ! $this->translateNextPackage()) {
+            // Not running any more means a package request failed and has already been reported.
+            if ($this->running) {
+                $this->finish($translations);
+            }
 
             return false;
         }
 
         $this->updateProgress();
+
+        return true;
+    }
+
+    /**
+     * Once the site strings are done, one package and language per step. Returns whether there was one.
+     */
+    private function translateNextPackage(): bool
+    {
+        $packages = app(PackageTranslations::class);
+        $next = $packages->next($this->skippedPackages);
+
+        if (! $next) {
+            return false;
+        }
+
+        [$package, $locale] = $next;
+
+        try {
+            $result = $packages->translateLocale($package, $locale);
+        } catch (RuntimeException|APIException $e) {
+            $this->running = false;
+
+            Notification::make()
+                ->danger()
+                ->title('Translation stopped')
+                ->body(ClaudeTranslator::describeError($e).' Everything translated before this was saved.')
+                ->persistent()
+                ->send();
+
+            return false;
+        }
+
+        if ($result['failed']) {
+            $this->skippedPackages[] = "{$package->id}|{$locale}";
+            array_push($this->skipped, ...array_keys($result['failed']));
+        }
 
         return true;
     }
@@ -153,22 +203,13 @@ class Translator extends Page
     private function updateProgress(): void
     {
         $translations = app(SiteTranslations::class);
-        $this->total = count($translations->strings());
-        $this->done = $this->total - count($translations->remaining(Carbon::parse($this->startedAt)));
+        $packagesLeft = min($this->packagesAtStart, app(PackageTranslations::class)->pendingCount($this->skippedPackages));
+        $this->total = count($translations->strings()) + $this->packagesAtStart;
+        $this->done = $this->total - count($translations->remaining(Carbon::parse($this->startedAt))) - $packagesLeft;
     }
 
     private function authorizeAdmin(): void
     {
         abort_unless(auth()->user()?->isAdmin(), 403);
-    }
-
-    private function describeError(Throwable $e): string
-    {
-        return match (true) {
-            $e instanceof AuthenticationException => 'The Anthropic API key was rejected. Check ANTHROPIC_API_KEY in .env.',
-            $e instanceof RateLimitException => 'The Anthropic API is rate limiting requests. Wait a minute and try again.',
-            $e instanceof APIConnectionException => 'Could not reach the Anthropic API. Check the server\'s internet connection.',
-            default => $e->getMessage(),
-        };
     }
 }

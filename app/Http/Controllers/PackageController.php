@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Package;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class PackageController extends Controller
 {
     public function index(Request $request)
     {
-        $packages = collect(config('travel.packages'));
+        $packages = Package::query()->published()->ordered()->get();
 
         $theme = $request->query('theme', 'All');
         if (! in_array($theme, array_merge(['All'], config('travel.themes')), true)) {
@@ -46,21 +46,13 @@ class PackageController extends Controller
 
     public function show(string $slug)
     {
-        $package = collect(config('travel.packages'))->firstWhere('slug', $slug);
-
-        if (! $package) {
-            abort(Response::HTTP_NOT_FOUND);
-        }
-
-        $keywords = travel_place($package['where']).','.$package['country'];
-        $detailShots = collect(range(1, 4))
-            ->map(fn ($i) => travel_img('niodet'.$package['id'].'-'.$i, 700, 500, $keywords));
+        $package = Package::query()->published()->where('slug', $slug)->firstOrFail();
 
         return view('packages.show', [
             'package' => $package,
-            'itinerary' => config('travel.sample_itinerary'),
-            'inclusions' => config('travel.inclusions'),
-            'detailShots' => $detailShots,
+            'itinerary' => $package->itinerary,
+            'inclusions' => $package->inclusions,
+            'detailShots' => $package->galleryUrls(),
         ]);
     }
 }

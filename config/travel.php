@@ -173,95 +173,7 @@ return [
         'portrait' => 'https://upload.wikimedia.org/wikipedia/commons/6/67/Scott_James_Reeves_Portrait_%E2%80%93_Professional_Headshot_of_Scott_James_Reeves_in_Blue_Blazer.jpg',
     ],
 
-    'packages' => [
-        [
-            'id' => 'p1', 'slug' => 'emerald-coast-honeymoon', 'theme' => 'Honeymoon', 'country' => 'Sri Lanka', 'kind' => 'Inbound', 'days' => 6, 'pax' => '2 pax', 'img' => 'niop1',
-            'title' => ['en' => 'Emerald Coast Honeymoon'],
-            'where' => ['en' => 'Galle · Mirissa · Ella'],
-            'season' => ['en' => 'December to April on the south coast; the sea is calm and the evenings dry.'],
-            'blurb' => ['en' => 'Private villa nights on the south coast, a hill-country train morning and a sunset whale cruise from Mirissa.'],
-        ],
-        [
-            'id' => 'p2', 'slug' => 'yala-udawalawe-safari', 'theme' => 'Wildlife', 'country' => 'Sri Lanka', 'kind' => 'Inbound', 'days' => 5, 'pax' => '2–14 pax', 'img' => 'niop2',
-            'title' => ['en' => 'Yala & Udawalawe Safari'],
-            'where' => ['en' => 'Yala · Udawalawe'],
-            'season' => ['en' => 'February to July, when the waterholes shrink and sightings peak.'],
-            'blurb' => ['en' => 'Two parks, four game drives and a naturalist who knows which waterhole the leopards are using this month.'],
-        ],
-        [
-            'id' => 'p3', 'slug' => 'pigeon-island-reef-dive', 'theme' => 'Reef & diving', 'country' => 'Sri Lanka', 'kind' => 'Inbound', 'days' => 4, 'pax' => '2–10 pax', 'img' => 'niop3',
-            'title' => ['en' => 'Pigeon Island Reef & Dive'],
-            'where' => ['en' => 'Trincomalee · Nilaveli'],
-            'season' => ['en' => 'May to September on the east coast, flat water, clear visibility.'],
-            'blurb' => ['en' => 'Snorkel the reef flats, two guided dives at Swami Rock, and a PADI discover-scuba session for first-timers.'],
-        ],
-        [
-            'id' => 'p4', 'slug' => 'cultural-triangle-explorer', 'theme' => 'Culture & heritage', 'country' => 'Sri Lanka', 'kind' => 'Inbound', 'days' => 7, 'pax' => '2–24 pax', 'img' => 'niop4',
-            'title' => ['en' => 'Cultural Triangle Explorer'],
-            'where' => ['en' => 'Sigiriya · Polonnaruwa · Kandy'],
-            'season' => ['en' => 'All year; climb Sigiriya at first light in any season.'],
-            'blurb' => ['en' => 'Sigiriya at dawn, the Polonnaruwa ruins by bicycle, cave temples at Dambulla and evening drumming in Kandy.'],
-        ],
-        [
-            'id' => 'p5', 'slug' => 'ramayana-heritage-circuit', 'theme' => 'Pilgrimage', 'country' => 'Sri Lanka', 'kind' => 'Inbound', 'days' => 7, 'pax' => '20–60 pax', 'img' => 'niop5',
-            'title' => ['en' => 'Ramayana Heritage Circuit'],
-            'where' => ['en' => 'Chilaw · Nuwara Eliya · Ella'],
-            'season' => ['en' => 'January to March, ideal for large groups in the hills.'],
-            'blurb' => ["en" => "The island's Ramayana sites with a Hindi-speaking manager, pure-veg catering and temple arrangements for large groups."],
-        ],
-        [
-            'id' => 'p6', 'slug' => 'knuckles-trek-kitulgala-rafting', 'theme' => 'Adventure', 'country' => 'Sri Lanka', 'kind' => 'Inbound', 'days' => 5, 'pax' => '4–16 pax', 'img' => 'niop7',
-            'title' => ['en' => 'Knuckles Trek & Kitulgala Rafting'],
-            'where' => ['en' => 'Knuckles · Kitulgala'],
-            'season' => ['en' => 'January to March and July to September for the driest trails.'],
-            'blurb' => ['en' => 'Two days on the Knuckles ridges, a night in a tented camp and grade-3 rapids on the Kelani river.'],
-        ],
-        [
-            'id' => 'p7', 'slug' => 'southern-beaches-escape', 'theme' => 'Beach', 'country' => 'Sri Lanka', 'kind' => 'Inbound', 'days' => 5, 'pax' => '2–20 pax', 'img' => 'niop8',
-            'title' => ['en' => 'Southern Beaches Escape'],
-            'where' => ['en' => 'Bentota · Unawatuna'],
-            'season' => ['en' => 'November to April.'],
-            'blurb' => ['en' => 'Beach days either side of a Galle fort evening, with a river safari and a turtle hatchery stop for the children.'],
-        ],
-        [
-            'id' => 'p8', 'slug' => 'minneriya-elephant-gathering', 'theme' => 'Wildlife', 'country' => 'Sri Lanka', 'kind' => 'Inbound', 'days' => 3, 'pax' => '2–18 pax', 'img' => 'niop9',
-            'title' => ['en' => 'Minneriya Elephant Gathering'],
-            'where' => ['en' => 'Habarana · Minneriya'],
-            'season' => ['en' => 'August and September, when hundreds gather at the tank.'],
-            'blurb' => ['en' => 'A short trip timed to the Gathering, with an afternoon jeep and a village lunch in Habarana.'],
-        ],
-        [
-            'id' => 'p9', 'slug' => 'maldives-overwater-getaway', 'theme' => 'Honeymoon', 'country' => 'Maldives', 'kind' => 'Outbound', 'days' => 4, 'pax' => '2 pax', 'img' => 'niop10',
-            'title' => ['en' => 'Maldives Overwater Getaway'],
-            'where' => ['en' => 'Male · North Ari Atoll'],
-            'season' => ['en' => 'January to April for the clearest lagoons.'],
-            'blurb' => ['en' => 'Seaplane transfer, three nights in an overwater villa, a sandbank dinner and a manta snorkel morning.'],
-        ],
-        [
-            'id' => 'p10', 'slug' => 'singapore-sentosa-family-break', 'theme' => 'City break', 'country' => 'Singapore', 'kind' => 'Outbound', 'days' => 5, 'pax' => '2–12 pax', 'img' => 'niop11',
-            'title' => ['en' => 'Singapore & Sentosa Family Break'],
-            'where' => ['en' => 'Singapore · Sentosa'],
-            'season' => ['en' => 'All year; February to April is driest.'],
-            'blurb' => ['en' => 'Gardens by the Bay, Universal Studios and a river cruise, with family rooms near Orchard Road.'],
-        ],
-        [
-            'id' => 'p11', 'slug' => 'thailand-islands-bangkok', 'theme' => 'Beach', 'country' => 'Thailand', 'kind' => 'Outbound', 'days' => 6, 'pax' => '2–16 pax', 'img' => 'niop12',
-            'title' => ['en' => 'Thailand Islands & Bangkok'],
-            'where' => ['en' => 'Bangkok · Krabi'],
-            'season' => ['en' => 'November to March.'],
-            'blurb' => ['en' => 'Two city nights and four on the Andaman coast, with island hopping and a longtail trip to Railay.'],
-        ],
-        [
-            'id' => 'p12', 'slug' => 'dubai-city-desert', 'theme' => 'City break', 'country' => 'UAE', 'kind' => 'Outbound', 'days' => 5, 'pax' => '2–20 pax', 'img' => 'niop13',
-            'title' => ['en' => 'Dubai City & Desert'],
-            'where' => ['en' => 'Dubai · Al Marmoom'],
-            'season' => ['en' => 'November to March.'],
-            'blurb' => ["en" => "Burj Khalifa, a dhow dinner, an evening desert safari and a day trip to Abu Dhabi's Grand Mosque."],
-        ],
-    ],
-
-    // Featured on the home page (first 3 shown)
-    'featured_packages' => ['p1', 'p2', 'p4'],
+    // Packages are stored in the database and edited in the admin panel (App\Models\Package).
 
     'destinations' => [
         [
@@ -338,55 +250,17 @@ return [
         ],
     ],
 
-    // Generic sample itinerary shown on every package detail page.
-    // 'meals' is left as the international B/L/D shorthand across all locales.
-    'sample_itinerary' => [
-        [
-            'n' => 1,
-            'title' => ['en' => 'Arrival & transfer'],
-            'body' => ['en' => 'Met at the airport with a name-board, SIM card and cold towels. Transfer to the first hotel, welcome dinner and a route briefing with your tour manager.'],
-            'stay' => ['en' => 'Negombo / Colombo'],
-            'meals' => 'Dinner',
-        ],
-        [
-            'n' => 2,
-            'title' => ['en' => 'On the road'],
-            'body' => ['en' => 'The first full touring day, timed to avoid the coach crowds. Lunch at a place we actually eat at, and an afternoon at a slower pace.'],
-            'stay' => ['en' => 'En route'],
-            'meals' => 'B · L · D',
-        ],
-        [
-            'n' => 3,
-            'title' => ['en' => 'The main experience'],
-            'body' => ['en' => 'The centrepiece of this tour, booked and permitted in advance so there is no queueing on the day.'],
-            'stay' => ['en' => 'En route'],
-            'meals' => 'B · L · D',
-        ],
-        [
-            'n' => 4,
-            'title' => ['en' => 'A free morning'],
-            'body' => ['en' => 'Deliberately unscheduled. Spa, market, beach or a second game drive, your manager arranges whichever you pick at breakfast.'],
-            'stay' => ['en' => 'En route'],
-            'meals' => 'B · D',
-        ],
-        [
-            'n' => 5,
-            'title' => ['en' => 'Return & departure'],
-            'body' => ['en' => 'A relaxed drive back with one last stop, then the airport with time to spare. Written trip record handed over.'],
-            'stay' => ['en' => 'Departure'],
-            'meals' => 'B',
-        ],
-    ],
-
-    'inclusions' => [
-        ['item' => ['en' => 'Accommodation'], 'note' => ['en' => 'Twin-share; upgrades quoted on request'], 'included' => true],
-        ['item' => ['en' => 'Airport transfers'], 'note' => ['en' => 'Private vehicle, meet and greet'], 'included' => true],
-        ['item' => ['en' => 'AC vehicle & driver-guide'], 'note' => ['en' => 'Dedicated for your party throughout'], 'included' => true],
-        ['item' => ['en' => 'Entrance fees'], 'note' => ['en' => 'All sites named in the itinerary'], 'included' => true],
-        ['item' => ['en' => 'Daily breakfast'], 'note' => ['en' => 'Half or full board quoted on request'], 'included' => true],
-        ['item' => ['en' => 'Airfare'], 'note' => ['en' => 'We block-book from Chennai, Trichy, Mumbai or Delhi'], 'included' => false],
-        ['item' => ['en' => 'Visa fee'], 'note' => ['en' => 'ETA assistance and invitation letters provided'], 'included' => false],
-        ['item' => ['en' => 'Travel insurance'], 'note' => ['en' => 'Strongly recommended; mandatory over 70'], 'included' => false],
+    // Included/excluded rows a new package starts with in the admin panel. Plain English on purpose:
+    // it is copied into the package, which is translated there (not by the site Translator run).
+    'default_inclusions' => [
+        ['item' => 'Accommodation', 'note' => 'Twin-share; upgrades quoted on request', 'included' => true],
+        ['item' => 'Airport transfers', 'note' => 'Private vehicle, meet and greet', 'included' => true],
+        ['item' => 'AC vehicle & driver-guide', 'note' => 'Dedicated for your party throughout', 'included' => true],
+        ['item' => 'Entrance fees', 'note' => 'All sites named in the itinerary', 'included' => true],
+        ['item' => 'Daily breakfast', 'note' => 'Half or full board quoted on request', 'included' => true],
+        ['item' => 'Airfare', 'note' => 'We block-book from Chennai, Trichy, Mumbai or Delhi', 'included' => false],
+        ['item' => 'Visa fee', 'note' => 'ETA assistance and invitation letters provided', 'included' => false],
+        ['item' => 'Travel insurance', 'note' => 'Strongly recommended; mandatory over 70', 'included' => false],
     ],
 
     'albums' => [

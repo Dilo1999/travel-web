@@ -3,7 +3,11 @@
 namespace App\Services;
 
 use Anthropic\Client;
+use Anthropic\Core\Exceptions\APIConnectionException;
+use Anthropic\Core\Exceptions\AuthenticationException;
+use Anthropic\Core\Exceptions\RateLimitException;
 use RuntimeException;
+use Throwable;
 
 /**
  * Translates English site copy into another locale with the Claude API.
@@ -24,6 +28,19 @@ class ClaudeTranslator
         }
 
         $this->client = new Client(apiKey: $apiKey);
+    }
+
+    /**
+     * A message an admin can act on for an error from a translation run.
+     */
+    public static function describeError(Throwable $e): string
+    {
+        return match (true) {
+            $e instanceof AuthenticationException => 'The Anthropic API key was rejected. Check ANTHROPIC_API_KEY in .env.',
+            $e instanceof RateLimitException => 'The Anthropic API is rate limiting requests. Wait a minute and try again.',
+            $e instanceof APIConnectionException => 'Could not reach the Anthropic API. Check the server\'s internet connection.',
+            default => $e->getMessage(),
+        };
     }
 
     /**
@@ -223,7 +240,7 @@ class ClaudeTranslator
 
         Translate each item from English into {$language} as it would read on a professionally localised travel website: natural, warm and concise rather than word-for-word. Use the vocabulary Indian travellers actually use. Where an English loanword is more natural in {$language} than a formal native coinage (words like safari, resort or check-in), write the loanword in {$language} script.
 
-        Each item has an id, the English text, and a context saying where it appears on the site (a UI key such as site.nav.home, or a content path such as travel.packages.3.blurb). Use the context to judge length and register: navigation and button labels stay short, descriptions can read as full sentences. An item may also carry a note explaining why an earlier translation was rejected; fix that problem.
+        Each item has an id, the English text, and a context saying where it appears on the site (a UI key such as site.nav.home, a content path such as travel.destinations.3.blurb, or a description such as tour package "Yala & Udawalawe Safari": day 3 body). Use the context to judge length and register: navigation and button labels stay short, descriptions can read as full sentences. An item may also carry a note explaining why an earlier translation was rejected; fix that problem.
 
         These must come through unchanged, because the site depends on them:
         - Laravel placeholders such as :name, :count or :package, including the leading colon. They are replaced with values at render time. Move them to wherever the grammar needs them, but never translate, respell or drop them.

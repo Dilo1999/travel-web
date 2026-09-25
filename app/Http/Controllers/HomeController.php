@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Package;
+
 class HomeController extends Controller
 {
     public function index()
     {
-        $packages = collect(config('travel.packages'));
+        $packages = Package::query()->published()->ordered()->get();
         $themeImages = config('travel.theme_images');
 
         $themeKeywords = config('travel.theme_photo_keywords');
@@ -23,9 +25,7 @@ class HomeController extends Controller
             ];
         });
 
-        $featured = collect(config('travel.featured_packages'))
-            ->map(fn ($id) => $packages->firstWhere('id', $id))
-            ->filter();
+        $featured = $packages->where('is_featured', true)->take(3);
 
         return view('home', [
             'themeCards' => $themeCards,

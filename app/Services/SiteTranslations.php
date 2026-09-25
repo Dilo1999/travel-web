@@ -9,7 +9,7 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /**
  * English is the only language written by hand: UI strings in resources/lang/en/*.php and
- * content in config/travel.php. A translation run (the Translator page in the admin panel)
+ * content in config/travel.php (packages live in the database; see PackageTranslations). A translation run (the Translator page in the admin panel)
  * sends all of it to Claude for every other locale and saves the results in the translations
  * table, which is what the site reads. The API is only used during a run.
  */
@@ -124,11 +124,7 @@ class SiteTranslations
         }
 
         $locale = reset($remaining)['locale'];
-        $translator = app(ClaudeTranslator::class, [
-            'model' => config('services.anthropic.model'),
-            'apiKey' => config('services.anthropic.key'),
-            'brand' => config('travel.brand.name'),
-        ]);
+        $translator = $this->translator();
 
         $items = [];
         foreach ($remaining as $slot => $string) {
@@ -154,6 +150,15 @@ class SiteTranslations
         return $saved;
     }
 
+    public function translator(): ClaudeTranslator
+    {
+        return app(ClaudeTranslator::class, [
+            'model' => config('services.anthropic.model'),
+            'apiKey' => config('services.anthropic.key'),
+            'brand' => config('travel.brand.name'),
+        ]);
+    }
+
     /**
      * Delete translations whose English no longer exists on the site.
      */
@@ -175,7 +180,7 @@ class SiteTranslations
      *
      * @return array<string, string> English => translation
      */
-    private function glossary(string $locale): array
+    public function glossary(string $locale): array
     {
         return Translation::query()
             ->where('locale', $locale)
