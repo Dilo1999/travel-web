@@ -1,4 +1,4 @@
-{{-- Filament's create-record page with the language switch above the form. --}}
+{{-- Filament's create-record page with the language switch (HasContentLocale) above the form. --}}
 <x-filament::page
     :class="
         \Illuminate\Support\Arr::toCssClasses([
@@ -8,7 +8,7 @@
     "
 >
     <div data-active-locale="{{ $this->activeLocale }}">
-        @include('filament.resources.package-resource.locale-switcher')
+        @include('filament.content-locale.switcher')
 
         <x-filament::form wire:submit.prevent="create">
             {{ $this->form }}

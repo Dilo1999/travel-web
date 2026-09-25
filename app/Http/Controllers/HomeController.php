@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Destination;
 use App\Models\Package;
 
 class HomeController extends Controller
@@ -30,7 +31,7 @@ class HomeController extends Controller
         return view('home', [
             'themeCards' => $themeCards,
             'featured' => $featured,
-            'destinations' => collect(config('travel.destinations'))->take(5),
+            'destinations' => Destination::query()->published()->where('is_featured', true)->ordered()->withPublishedPackageCount()->take(5)->get(),
             'pillars' => config('travel.pillars'),
             'testimonials' => config('travel.testimonials'),
             'albums' => collect(config('travel.albums'))->take(4),

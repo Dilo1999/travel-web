@@ -1,4 +1,4 @@
-{{-- Filament's edit-record page with the language switch above the form. --}}
+{{-- Filament's edit-record page with the language switch (HasContentLocale) above the form. --}}
 <x-filament::page
     :widget-data="['record' => $record]"
     :class="
@@ -10,7 +10,7 @@
     "
 >
     <div data-active-locale="{{ $this->activeLocale }}">
-        @include('filament.resources.package-resource.locale-switcher')
+        @include('filament.content-locale.switcher')
 
         <x-filament::form wire:submit.prevent="save">
             {{ $this->form }}

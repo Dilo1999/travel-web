@@ -27,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
         // Default string length 191 keeps unique indexes under that limit.
         Schema::defaultStringLength(191);
 
-        // Styles for the language switch on the package edit form (PackageResource).
+        // Styles for the language switch on the package and destination forms (TranslatableForm).
         Filament::serving(fn () => Filament::registerRenderHook(
             'styles.end',
             fn () => view('filament.content-locale-styles'),

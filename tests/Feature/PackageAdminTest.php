@@ -210,6 +210,7 @@ class PackageAdminTest extends TestCase
 
         $this->assertNotContains('Yala & Udawalawe Safari', $sources);
         $this->assertNotContains('The main experience', $sources);
+        $this->assertNotContains('Kandy & the hill country', $sources, 'destinations are translated from their own edit page too');
     }
 
     public function test_create_package_in_english(): void

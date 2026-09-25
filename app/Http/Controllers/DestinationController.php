@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Destination;
 use Illuminate\Http\Request;
 
 class DestinationController extends Controller
@@ -13,9 +14,12 @@ class DestinationController extends Controller
             $tab = 'All';
         }
 
-        $destinations = collect(config('travel.destinations'))
-            ->when($tab !== 'All', fn ($items) => $items->where('kind', $tab))
-            ->values();
+        $destinations = Destination::query()
+            ->published()
+            ->ordered()
+            ->withPublishedPackageCount()
+            ->when($tab !== 'All', fn ($query) => $query->where('kind', $tab))
+            ->get();
 
         return view('destinations.index', [
             'destinations' => $destinations,

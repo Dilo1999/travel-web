@@ -86,9 +86,9 @@
         </div>
         <div class="grid grid-cols-2 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-5">
             @foreach ($destinations as $destination)
-                <a href="{{ route('destinations', ['kind' => $destination['kind']]) }}"
+                <a href="{{ $destination->packagesUrl() }}"
                    class="group relative h-[190px] overflow-hidden rounded-[20px] bg-cover bg-center shadow-glass transition-transform duration-300 hover:-translate-y-1.5 sm:h-[250px] sm:rounded-[24px] {{ $loop->last && $loop->count % 2 === 1 ? 'max-sm:col-span-2' : '' }}"
-                   style="background-image:url('{{ travel_img($destination['img'], 1000, 700, travel_place($destination['name']).','.$destination['country']) }}')">
+                   style="background-image:url('{{ $destination->heroImageUrl(1000, 700) }}')">
                     <span class="absolute inset-0" style="background:linear-gradient(180deg,rgba(8,22,12,.06),rgba(8,22,12,.74))"></span>
                     <span class="absolute inset-x-3.5 bottom-3.5 block text-left sm:inset-x-4.5 sm:bottom-4">
                         <span class="block text-[10px] font-semibold tracking-[0.1em] text-white/70 uppercase sm:text-[11px]">{{ travel_label(config('travel.kind_labels'), $destination['kind']) }}</span>

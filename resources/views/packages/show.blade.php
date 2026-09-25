@@ -91,6 +91,16 @@
             <div class="my-6 h-px bg-divider"></div>
             <div class="mb-3 text-[11.5px] font-semibold tracking-[0.12em] text-ink/45 uppercase">{{ __('site.packages.best_season') }}</div>
             <p class="text-[13.5px] leading-relaxed text-ink/60">{{ travel_t($package['season']) }}</p>
+            @if ($package->destinations->isNotEmpty())
+                {{-- Each links to that destination's other packages. --}}
+                <div class="mt-6 mb-3 text-[11.5px] font-semibold tracking-[0.12em] text-ink/45 uppercase">{{ __('site.nav.destinations') }}</div>
+                <div class="flex flex-wrap gap-2">
+                    @foreach ($package->destinations as $destination)
+                        <a href="{{ route('packages.index', ['destination' => $destination->slug]) }}"
+                           class="rounded-full bg-accent-100 px-3 py-1.5 text-[12px] font-semibold text-accent-800">{{ travel_t($destination->name) }}</a>
+                    @endforeach
+                </div>
+            @endif
         </aside>
     </div>
 </section>

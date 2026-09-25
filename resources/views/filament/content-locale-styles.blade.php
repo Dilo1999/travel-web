@@ -1,5 +1,5 @@
 {{--
-    Package form language switch (PackageResource). Every language's fields stay in the form so
+    Language switch on the package and destination forms (TranslatableForm). Every language's fields stay in the form so
     they are all saved; these rules hide the grid cells of the languages not being edited, and the
     shared (language-neutral) fields while a translation is being edited.
 --}}

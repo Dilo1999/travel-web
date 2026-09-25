@@ -2,10 +2,10 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Concerns\TranslatableForm;
 use App\Filament\Resources\PackageResource\Pages;
+use App\Models\Destination;
 use App\Models\Package;
-use Closure;
-use Filament\Forms\Components\Component;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Group;
@@ -26,16 +26,15 @@ use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /**
- * Tour packages. The form holds every language at once; the language switch on the create/edit
- * pages (HasContentLocale) only changes which language is shown, via the data-content-locale /
- * data-locale-shared markers styled in resources/views/filament/content-locale-styles.blade.php.
- * Fields are hidden with CSS rather than ->hidden() because Filament does not save hidden fields.
+ * Tour packages, edited in every site language (see TranslatableForm) and linked to the
+ * destinations they run through.
  */
 class PackageResource extends Resource
 {
+    use TranslatableForm;
+
     protected static ?string $model = Package::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-map';
@@ -49,14 +48,6 @@ class PackageResource extends Resource
     public static function getRecordTitle(?Model $record): ?string
     {
         return $record instanceof Package ? ($record->title[Package::SOURCE_LOCALE] ?? $record->slug) : static::getModelLabel();
-    }
-
-    /**
-     * @return array<string, array{name: string, native: string}> locale => names, English first
-     */
-    public static function locales(): array
-    {
-        return LaravelLocalization::getSupportedLocales();
     }
 
     public static function form(Form $form): Form
@@ -127,7 +118,7 @@ class PackageResource extends Resource
                                             ...static::localized('note', fn (string $path) => TextInput::make($path)->label('Note')->maxLength(160)),
                                         ]),
                                     ])
-                                    ->itemLabel(fn (array $state, $livewire) => static::itemLabel($state, 'item', $livewire, 'Item', withStatus: true))
+                                    ->itemLabel(fn (array $state, $livewire) => (($state['included'] ?? true) ? '✓ ' : '– ').static::itemLabel($state, 'item', $livewire, 'Item'))
                                     ->createItemButtonLabel('Add item')
                                     ->collapsible()
                                     ->disableItemCreation(fn ($livewire) => static::isTranslating($livewire))
@@ -161,6 +152,12 @@ class PackageResource extends Resource
                                         ->options(array_combine($countries = array_keys(config('travel.country_labels')), $countries))
                                         ->default('Sri Lanka')
                                         ->required(),
+                                    Select::make('destinations')
+                                        ->multiple()
+                                        ->relationship('destinations', 'slug')
+                                        ->getOptionLabelFromRecordUsing(fn (Destination $record) => $record->name[Destination::SOURCE_LOCALE] ?? $record->slug)
+                                        ->preload()
+                                        ->helperText('The destinations this tour runs through. Their "See packages" buttons list it.'),
                                     TextInput::make('days')
                                         ->numeric()
                                         ->minValue(1)
@@ -258,99 +255,6 @@ class PackageResource extends Resource
             'create' => Pages\CreatePackage::route('/create'),
             'edit' => Pages\EditPackage::route('/{record}/edit'),
         ];
-    }
-
-    /**
-     * One copy of a field per language, each tagged with its locale so only the active one shows.
-     * English is required where $required; the other languages show the English beneath them.
-     *
-     * @param  Closure(string $path): \Filament\Forms\Components\Field  $make
-     * @return list<Group>
-     */
-    public static function localized(string $name, Closure $make, bool $required = false, ?string $help = null): array
-    {
-        $groups = [];
-
-        foreach (static::locales() as $locale => $properties) {
-            $field = $make("{$name}.{$locale}");
-
-            if ($locale === Package::SOURCE_LOCALE) {
-                $field->required($required)->helperText($help);
-            } else {
-                $field
-                    ->label($field->getLabel().' · '.$properties['native'])
-                    ->required(false)
-                    ->placeholder(fn (Closure $get) => $get("{$name}.".Package::SOURCE_LOCALE))
-                    ->helperText(fn (Closure $get) => filled($english = $get("{$name}.".Package::SOURCE_LOCALE)) ? 'English: '.$english : 'No English text yet.')
-                    ->hint(fn (Closure $get, $livewire) => static::isOutdated($livewire, $name, $locale, $get) ? 'English changed since this was translated' : null)
-                    ->hintIcon(fn (Closure $get, $livewire) => static::isOutdated($livewire, $name, $locale, $get) ? 'heroicon-s-exclamation' : null)
-                    ->hintColor('warning');
-            }
-
-            $groups[] = Group::make([$field])->extraAttributes(['data-content-locale' => $locale]);
-        }
-
-        return $groups;
-    }
-
-    /**
-     * Fields that are the same in every language; they are only shown while editing English.
-     */
-    public static function shared(Component ...$components): Group
-    {
-        return Group::make($components)->extraAttributes(['data-locale-shared' => 'true']);
-    }
-
-    public static function isTranslating($livewire): bool
-    {
-        return ($livewire->activeLocale ?? Package::SOURCE_LOCALE) !== Package::SOURCE_LOCALE;
-    }
-
-    /**
-     * Whether the saved translation at this field was made from different English than the form now has.
-     */
-    private static function isOutdated($livewire, string $name, string $locale, Closure $get): bool
-    {
-        $record = $livewire->record ?? null;
-
-        if (! $record instanceof Package || blank($get("{$name}.{$locale}"))) {
-            return false;
-        }
-
-        // Inside a repeater item the path includes the list name and item key.
-        $key = $get('key');
-        $path = $key ? static::listNameFor($name)."{$key}.{$name}" : $name;
-
-        return isset($record->translation_sources[$locale][$path])
-            && $record->translation_sources[$locale][$path] !== sha1((string) $get("{$name}.".Package::SOURCE_LOCALE));
-    }
-
-    private static function listNameFor(string $field): string
-    {
-        foreach (Package::LIST_TEXT_FIELDS as $list => $fields) {
-            if (in_array($field, $fields, true)) {
-                return "{$list}.";
-            }
-        }
-
-        return '';
-    }
-
-    private static function itemLabel(array $state, string $field, $livewire, string $fallback, bool $withStatus = false): string
-    {
-        $locale = $livewire->activeLocale ?? Package::SOURCE_LOCALE;
-        $text = $state[$field][$locale] ?? null;
-        $label = filled($text) ? $text : (($state[$field][Package::SOURCE_LOCALE] ?? null) ?: $fallback);
-
-        if ($locale !== Package::SOURCE_LOCALE && blank($text) && filled($state[$field][Package::SOURCE_LOCALE] ?? null)) {
-            $label .= ' — not translated';
-        }
-
-        if ($withStatus) {
-            $label = (($state['included'] ?? true) ? '✓ ' : '– ').$label;
-        }
-
-        return $label;
     }
 
     /**

@@ -1,4 +1,4 @@
-{{-- Language switch for the package form, styled like the one on the website (see content-locale-styles). --}}
+{{-- Language switch for a translatable form (HasContentLocale), styled like the one on the website (see content-locale-styles). --}}
 @php
     $locales = $this->getContentLocales();
     $active = $this->activeLocale;
@@ -35,11 +35,11 @@
         </svg>
     </div>
 
-    @if ($active !== \App\Models\Package::SOURCE_LOCALE)
+    @if ($active !== \App\Models\Contracts\TranslatableContent::SOURCE_LOCALE)
         <p class="pkg-locale-bar__note">
             You are editing the <strong>{{ $locales[$active]['name'] }}</strong> text. The English it translates is shown
             under each field, and empty fields show English on the website.
-            Photos, dates, days and settings are shared by all languages; switch to English to change them.
+            Photos and settings are shared by all languages; switch to English to change them.
         </p>
     @endif
 </div>

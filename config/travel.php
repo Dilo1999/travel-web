@@ -173,82 +173,8 @@ return [
         'portrait' => 'https://upload.wikimedia.org/wikipedia/commons/6/67/Scott_James_Reeves_Portrait_%E2%80%93_Professional_Headshot_of_Scott_James_Reeves_in_Blue_Blazer.jpg',
     ],
 
-    // Packages are stored in the database and edited in the admin panel (App\Models\Package).
-
-    'destinations' => [
-        [
-            'name' => ['en' => 'Colombo & the west'],
-            'country' => 'Sri Lanka', 'kind' => 'Inbound',
-            'blurb' => ['en' => 'Arrivals, city sightseeing and the springboard for every circuit we run.'],
-            'tags' => ['City', 'Food', 'Shopping'], 'img' => 'niod1',
-        ],
-        [
-            'name' => ['en' => 'Kandy & the hill country'],
-            'country' => 'Sri Lanka', 'kind' => 'Inbound',
-            'blurb' => ['en' => 'Tea estates, the Temple of the Tooth and the Ella train through the gap.'],
-            'tags' => ['Culture', 'Train', 'Tea'], 'img' => 'niod2',
-        ],
-        [
-            'name' => ['en' => 'Yala & Udawalawe'],
-            'country' => 'Sri Lanka', 'kind' => 'Inbound',
-            'blurb' => ['en' => 'Leopards, elephants and the best-run game drives on the island.'],
-            'tags' => ['Wildlife', 'Safari'], 'img' => 'niod3',
-        ],
-        [
-            'name' => ['en' => 'Galle & the south coast'],
-            'country' => 'Sri Lanka', 'kind' => 'Inbound',
-            'blurb' => ['en' => 'Fort evenings, whale cruises from Mirissa and quiet honeymoon beaches.'],
-            'tags' => ['Beach', 'Honeymoon', 'Whales'], 'img' => 'niod4',
-        ],
-        [
-            'name' => ['en' => 'Trincomalee & the east'],
-            'country' => 'Sri Lanka', 'kind' => 'Inbound',
-            'blurb' => ['en' => 'Pigeon Island reef, Swami Rock dives and flat May-to-September seas.'],
-            'tags' => ['Reef', 'Diving'], 'img' => 'niod5',
-        ],
-        [
-            'name' => ['en' => 'Cultural Triangle'],
-            'country' => 'Sri Lanka', 'kind' => 'Inbound',
-            'blurb' => ['en' => 'Sigiriya, Dambulla, Polonnaruwa and Anuradhapura in one loop.'],
-            'tags' => ['Heritage', 'UNESCO'], 'img' => 'niod6',
-        ],
-        [
-            'name' => ['en' => 'Maldives'],
-            'country' => 'Maldives', 'kind' => 'Outbound',
-            'blurb' => ['en' => 'Overwater villas an hour from Colombo, our most-booked honeymoon add-on.'],
-            'tags' => ['Honeymoon', 'Reef'], 'img' => 'niod7',
-        ],
-        [
-            'name' => ['en' => 'Thailand'],
-            'country' => 'Thailand', 'kind' => 'Outbound',
-            'blurb' => ['en' => 'Bangkok, Phuket and Krabi, with Indian-friendly dining arranged.'],
-            'tags' => ['Beach', 'City'], 'img' => 'niod8',
-        ],
-        [
-            'name' => ['en' => 'Singapore & Malaysia'],
-            'country' => 'Singapore', 'kind' => 'Outbound',
-            'blurb' => ['en' => 'The family favourite: theme parks, gardens and easy transfers.'],
-            'tags' => ['Family', 'City'], 'img' => 'niod9',
-        ],
-        [
-            'name' => ['en' => 'Dubai & Abu Dhabi'],
-            'country' => 'UAE', 'kind' => 'Outbound',
-            'blurb' => ['en' => 'City sightseeing, desert evenings and shopping weeks.'],
-            'tags' => ['City', 'Desert'], 'img' => 'niod10',
-        ],
-        [
-            'name' => ['en' => 'Nepal'],
-            'country' => 'Nepal', 'kind' => 'Outbound',
-            'blurb' => ['en' => 'Kathmandu, Pokhara and the Annapurna foothills for walking groups.'],
-            'tags' => ['Mountains', 'Pilgrimage'], 'img' => 'niod11',
-        ],
-        [
-            'name' => ['en' => 'Vietnam'],
-            'country' => 'Vietnam', 'kind' => 'Outbound',
-            'blurb' => ['en' => 'Hanoi, Ha Long Bay and Da Nang, our fastest-growing outbound route.'],
-            'tags' => ['Culture', 'Beach'], 'img' => 'niod12',
-        ],
-    ],
+    // Packages and destinations are stored in the database and edited in the admin panel
+    // (App\Models\Package, App\Models\Destination).
 
     // Included/excluded rows a new package starts with in the admin panel. Plain English on purpose:
     // it is copied into the package, which is translated there (not by the site Translator run).

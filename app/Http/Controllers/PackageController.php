@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Destination;
 use App\Models\Package;
 use Illuminate\Http\Request;
 
@@ -16,7 +17,12 @@ class PackageController extends Controller
             $theme = 'All';
         }
 
-        $kind = $request->query('kind', 'Inbound');
+        // "See packages" on a destination: only the packages linked to it, on its Inbound/Outbound tab.
+        $destination = $request->filled('destination')
+            ? Destination::query()->published()->where('slug', $request->query('destination'))->first()
+            : null;
+
+        $kind = $destination?->kind ?? $request->query('kind', 'Inbound');
         if (! in_array($kind, ['Inbound', 'Outbound'], true)) {
             $kind = 'Inbound';
         }
@@ -29,7 +35,8 @@ class PackageController extends Controller
         $durationOf = fn (int $days) => $days <= 4 ? '3–4' : ($days <= 6 ? '5–6' : '7+');
 
         $shown = $packages
-            ->where('kind', $kind)
+            ->when($destination, fn ($items) => $items->whereIn('id', $destination->packages()->pluck('packages.id')))
+            ->when(! $destination, fn ($items) => $items->where('kind', $kind))
             ->when($theme !== 'All', fn ($items) => $items->where('theme', $theme))
             ->when($duration !== 'All', fn ($items) => $items->filter(fn ($p) => $durationOf($p['days']) === $duration))
             ->values();
@@ -41,12 +48,14 @@ class PackageController extends Controller
             'activeTheme' => $theme,
             'activeKind' => $kind,
             'activeDuration' => $duration,
+            'activeDestination' => $destination,
         ]);
     }
 
     public function show(string $slug)
     {
         $package = Package::query()->published()->where('slug', $slug)->firstOrFail();
+        $package->load(['destinations' => fn ($query) => $query->published()]);
 
         return view('packages.show', [
             'package' => $package,
